@@ -1,0 +1,94 @@
+//
+//  CoinChartViewModel.swift
+//  SeSacRecap2
+//
+//  Created by Jae hyung Kim on 2/28/24.
+//
+// MARK: 어떻게 해야 저 UI들을 유연하게 할수있을지
+// MARK: 어떻게 해야 뷰모델이 덜 무거워 질지 감이 잘 오질 않습니다...
+// MARK: 막상 이런 UI들을 보고 있으니 도무지 감이 오지 않았습니다....
+// MARK: 어떤 키워드들을 공부해야 이런 UI들을 유연하게 대처해볼 수 있을까요..!
+import Foundation
+
+class CoinChartViewModel {
+    // INPUT
+    var coinInfoInput: Observable<Coin?> = Observable(nil)
+    var cellTextColorInput: Observable<IndexPath?> = Observable(nil)
+    
+    // OUTPUT
+    var mainCoinInfoOutput: Observable<CoinPriceModel?> = Observable(nil)
+    var collectionDataOutput: Observable<[chartSectionData]> = Observable([])
+    var cellectionCellColorBool: Observable<Bool?> = Observable(nil)
+    var chartDataOutPut: Observable<[Double]> = Observable([])
+    
+    init() {
+        coinInfoInput.bind {[weak self] coin in
+            guard let coin else {return}
+            guard let self else {return}
+            fetch(coin)
+        }
+        cellTextColorInput.bind { [weak self] indexPath in
+            guard let self else {return}
+            guard let indexPath else {return}
+            prefetchCellColorBool(row: indexPath.row)
+        }
+    }
+    /// 성공시 [CoinMarket] 반환받음 1차시동 성공 []가 여긴 하나라 그냥 벗겨야함
+    /// 실패시 APIError 를 반환받음
+    private func fetch(_ coin: Coin){
+        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: [coin.id], spakelType: true)) { results in
+            switch results {
+            case .success(let success):
+                guard let result =  success.first else {return}
+                print(result)
+                self.prefetchCoinMainInfo(coinMarket: result)
+                self.prefetchCoinHighLowInfo(coinMarket: result)
+                self.prefetchChartData(market: result)
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    ///코인정보를 전달합니다.
+    private func prefetchCoinMainInfo(coinMarket : CoinMarket){
+        let coinModel = CoinPriceModel(coinName: coinMarket.name, coinImage: coinMarket.image, persentTage: coinMarket.priceChangePercentage24H, current: coinMarket.currentPrice)
+        mainCoinInfoOutput.value = coinModel
+    }
+    /// 컬렉션뷰 셀의 데이터를 전달합니다.....
+    private func prefetchCoinHighLowInfo(coinMarket: CoinMarket) {
+        let high = NumberFormetter.shared.makeKRW(price: coinMarket.high24H)
+        let superHigh = NumberFormetter.shared.makeKRW(price: coinMarket.ath)
+        let first = chartSectionData(normal: high, supers: superHigh)
+        
+        let low = NumberFormetter.shared.makeKRW(price: coinMarket.low24H)
+        let superLow = NumberFormetter.shared.makeKRW(price: coinMarket.atl)
+        let second = chartSectionData(normal: low, supers: superLow)
+        collectionDataOutput.value = [first,second]
+    }
+    /// 컬러의 true false 의 따라 색을 구분합니다.
+    private func prefetchCellColorBool(row: Int){
+        let bool = CharSection.allCases[row].colorBool
+        cellectionCellColorBool.value = bool
+    }
+    
+    private func prefetchChartData(market: CoinMarket){
+        guard let market7d = market.sparklineIn7D else {return}
+        chartDataOutPut.value = market7d.price
+    }
+    
+    
+}
+/*
+ let id, symbol, name: String // 코인 아이디, 코인 통화단위, 코인이름
+ let image: String // 코인 아이콘 리소스
+ 
+ let currentPrice: Double? // 코인 현재가
+ let priceChangePercentage24H: Double? // 코인 현재가 (시가) // 퍼센테이지
+ let high24H, low24H: Double? // 코인 고가, 코인 저기
+ let ath: Double? // 코인 사상최고가 (신고점, ALL-Time-High)
+ let athDate: String? // 신고점 일자
+ let atlDate: String? // 신저점 일자
+ let atl: Double? // 코인 사상 최저가 (신고점, ALL-Time-Low)
+ let lastUpdated: String? // 코인 시장 데이터 업데이트 시각
+ let sparklineIn7D: SparklineIn7D? // 일주일간 코인 시세 정보
+ */

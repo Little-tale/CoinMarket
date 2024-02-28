@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B35E81A2B8F6B0A004E4745 /* ChartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B35E8192B8F6B0A004E4745 /* ChartFactory.swift */; };
+		7B35E81D2B8F6B4D004E4745 /* ColorEssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B35E81C2B8F6B4D004E4745 /* ColorEssets.swift */; };
 		7B5C3E3C2B8DAF4E005FD3BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E3B2B8DAF4E005FD3BC /* AppDelegate.swift */; };
 		7B5C3E3E2B8DAF4E005FD3BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E3D2B8DAF4E005FD3BC /* SceneDelegate.swift */; };
 		7B5C3E402B8DAF4E005FD3BC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E3F2B8DAF4E005FD3BC /* SearchViewController.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B35E8192B8F6B0A004E4745 /* ChartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFactory.swift; sourceTree = "<group>"; };
+		7B35E81C2B8F6B4D004E4745 /* ColorEssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEssets.swift; sourceTree = "<group>"; };
 		7B5C3E382B8DAF4E005FD3BC /* SeSacRecap2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSacRecap2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5C3E3B2B8DAF4E005FD3BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B5C3E3D2B8DAF4E005FD3BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +109,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B35E8182B8F6AFF004E4745 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				7B35E8192B8F6B0A004E4745 /* ChartFactory.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		7B35E81B2B8F6B41004E4745 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				7B35E81C2B8F6B4D004E4745 /* ColorEssets.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
 		7B5C3E2F2B8DAF4E005FD3BC = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +287,8 @@
 		7B5C3E8C2B8E293A005FD3BC /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				7B35E81B2B8F6B41004E4745 /* Color */,
+				7B35E8182B8F6AFF004E4745 /* Chart */,
 				7B5C3EBB2B8EFEAA005FD3BC /* CoinPriceView */,
 				7B5C3E8D2B8E2946005FD3BC /* StarButton.swift */,
 			);
@@ -404,9 +426,11 @@
 				7B5C3E402B8DAF4E005FD3BC /* SearchViewController.swift in Sources */,
 				7B5C3E532B8DB070005FD3BC /* HomeBaseViewController.swift in Sources */,
 				7B5C3EB82B8EFE39005FD3BC /* CoinChartViewController.swift in Sources */,
+				7B35E81D2B8F6B4D004E4745 /* ColorEssets.swift in Sources */,
 				7B5C3E752B8DBB37005FD3BC /* APIModel.swift in Sources */,
 				7B5C3E7D2B8E07AE005FD3BC /* SearchViewModel.swift in Sources */,
 				7B5C3E552B8DB0B2005FD3BC /* BaseView.swift in Sources */,
+				7B35E81A2B8F6B0A004E4745 /* ChartFactory.swift in Sources */,
 				7B5C3EBD2B8EFF02005FD3BC /* CoinPriceView.swift in Sources */,
 				7B5C3E5C2B8DB573005FD3BC /* SearchHomeView.swift in Sources */,
 				7B5C3E932B8E3819005FD3BC /* RealmTable.swift in Sources */,
