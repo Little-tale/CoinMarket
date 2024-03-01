@@ -32,5 +32,8 @@ class BaseTableViewCell: UITableViewCell {
     func designView(){
         
     }
+    func registers(){
+        
+    }
     
 }

@@ -31,18 +31,18 @@ extension UILabel {
 }
 
 extension UIViewController {
-    func showAlert(error: APIError) -> UIAlertController {
+    func showAlert(error: APIError){
         let alert = UIAlertController()
         alert.title = error.title
         alert.message = error.message
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             alert.dismiss(animated: true)
         }
-        return alert
+        self.present(alert,animated: true )
     }
     
-    func showAlert(text: String?, message: String?) -> UIAlertController {
+    func showAlert(text: String?, message: String?){
         let alert = UIAlertController()
         alert.title = text
         alert.message = message
@@ -50,17 +50,17 @@ extension UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             alert.dismiss(animated: true)
         }
-        return alert
+        self.present(alert,animated: true )
     }
     
-    func showAlert(error: RepositoryError) -> UIAlertController {
+    func showAlert(error: RepositoryError){
         let alert = UIAlertController()
         alert.title = error.title
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             alert.dismiss(animated: true)
         }
-        return alert
+        self.present(alert,animated: true )
     }
     
     

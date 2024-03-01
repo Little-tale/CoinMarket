@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let nvc = UINavigationController(rootViewController: SearchViewController())
         let nvc2 = UINavigationController(rootViewController: FavoriteCoinViewController())
-        window?.rootViewController = ChartSearchTabViewController() //nvc2//FavoriteCoinViewController() //  ChartSearchTabViewController() // nvc // CoinChartViewController() // nvc
+        window?.rootViewController = ChartSearchTabViewController() // TrendingViewController() // ChartSearchTabViewController() //nvc2//FavoriteCoinViewController() //  ChartSearchTabViewController() // nvc // CoinChartViewController() // nvc
         window?.makeKeyAndVisible()
     }
 

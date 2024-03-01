@@ -7,65 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4FA45041-8946-4B7B-9102-64B7DE34A095"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SeSacRecap2/View/ViewController/SearchViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "favoriteButtonClicked(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4FA45041-8946-4B7B-9102-64B7DE34A095 - 8844b608814b0095"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SeSacRecap2.SearchViewController.favoriteButtonClicked(__C.UIButton) -&gt; ()"
-                  moduleName = "SeSacRecap2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/SeSacRecap2/SeSacRecap2/View/ViewController/SearchViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "133"
-                  endingLineNumber = "133"
-                  offsetFromSymbolStart = "168">
-               </Location>
-               <Location
-                  uuid = "4FA45041-8946-4B7B-9102-64B7DE34A095 - 8844b608814b00b6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SeSacRecap2.SearchViewController.favoriteButtonClicked(__C.UIButton) -&gt; ()"
-                  moduleName = "SeSacRecap2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/SeSacRecap2/SeSacRecap2/View/ViewController/SearchViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "312">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "92BA19D4-1618-4E09-87E4-EFC2A33CD124"
+            uuid = "772D731F-7B52-4069-BF3D-1503E7D94E9A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SeSacRecap2/View/ViewModel/FavoriteCoinViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "FavoriteCoinViewModel"
-            landmarkType = "3">
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "772D731F-7B52-4069-BF3D-1503E7D94E9A - d53c7cc8f24390c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SeSacRecap2.FavoriteCoinViewModel.init() -&gt; SeSacRecap2.FavoriteCoinViewModel"
+                  moduleName = "SeSacRecap2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/SeSacRecap2/SeSacRecap2/View/ViewModel/FavoriteCoinViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "1128">
+               </Location>
+               <Location
+                  uuid = "772D731F-7B52-4069-BF3D-1503E7D94E9A - c246219fa693a509"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (Swift.Optional&lt;()&gt;) -&gt; () in SeSacRecap2.FavoriteCoinViewModel.init() -&gt; SeSacRecap2.FavoriteCoinViewModel"
+                  moduleName = "SeSacRecap2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/SeSacRecap2/SeSacRecap2/View/ViewModel/FavoriteCoinViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

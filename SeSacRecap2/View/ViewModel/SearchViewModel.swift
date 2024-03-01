@@ -24,6 +24,7 @@ class SearchViewModel {
     
     let saveSuccesOutput: Observable<String?> = Observable(nil)
     let checkedButtonOutput: Observable<Bool?> = Observable(nil)
+    let reloadTrigger: Observable<Void?> = Observable(nil)
     
     // test
     // var realmModel.
@@ -49,7 +50,7 @@ class SearchViewModel {
             let data = self.searchOutput.value[row]
             self.favoriteSetting(data)
             print(searchOutput.value[row])
-            triggerViewController.value = ()
+            // triggerViewController.value = ()
         }
         
     }
@@ -71,6 +72,7 @@ class SearchViewModel {
     // 하.. 이렇게 하니까 된다. 먼저 즐겨찾기부터 확인
     // 그후에 최대 개수를 확인했어야 했다.
     private func favoriteSetting(_ coin: Coin){
+
         // 즐겨찾기에 있는지 확인
         if repository.findFavorite(coin.id) {
             // 이미 있는 경우 삭제 MARK: 이부분을 재고민
@@ -88,6 +90,8 @@ class SearchViewModel {
         } else {
             // 즐겨찾기에 없는 경우, 최대 개수 체크
             guard repository.canIFavorite else {
+                print("^^^^^^^^^^^^^^^^^^^^^^^^")
+                self.reloadTrigger.value = ()
                 self.saveSuccesOutput.value = "최대 10개까지 입니다."
                 return
             }
@@ -100,7 +104,7 @@ class SearchViewModel {
                 self.tableErrorOutput.value = failure
             }
         }
-        
+       
     }
 
     // MARK: 코인정보를 조회

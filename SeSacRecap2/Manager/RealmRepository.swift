@@ -166,6 +166,11 @@ final class RealmRepository {
         return array
     }
     
+    func getFavoriteResults() -> [Results<CoinSearchTable>] {
+        let results = realm.objects(coinRealmTable)
+        return Array(arrayLiteral: results)
+    }
+    
     // id를 조회해 코인 테이블을 가져옵니다.
     func getCoin(_ id: String) -> CoinSearchTable? {
         let data = realm.objects(coinRealmTable).where { $0.coinId == id }

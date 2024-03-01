@@ -8,20 +8,21 @@
 import UIKit
 import SnapKit
 
-class SearchHomeView: BaseView {
-    let tableView = UITableView(frame: .zero)
+class TableHomeView: BaseView {
+    let customTableView = UITableView(frame: .zero)
     
     override func configureHierarchy() {
-        self.addSubview(tableView)
+        self.addSubview(customTableView)
     }
     override func configureLayout() {
-        tableView.snp.makeConstraints { make in
+        customTableView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
     
     override func register() {
         super.register()
-        tableView.register(CoinDetailButtonCell.self, forCellReuseIdentifier: CoinDetailButtonCell.reusableIdentifier)
+        customTableView.register(CoinDetailButtonCell.self, forCellReuseIdentifier: CoinDetailButtonCell.reusableIdentifier)
+        customTableView.register(TableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: TableInCollectionFavoriteTableCell.reusableIdentifier)
     }
 }

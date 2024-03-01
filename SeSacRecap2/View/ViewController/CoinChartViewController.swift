@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import DGCharts
 // MARK: 드디어 전뷰랑 연동이 되었다 ㅠㅠㅠㅠ
+// MRAK: 전역적으로 연동할수 있는 법을 모르겠다....
 
 enum CharSection:Int, CaseIterable {
     case high
@@ -196,10 +197,9 @@ extension CoinChartViewController {
         viewModel.errorOutPut.bind {[weak self] message in
             guard let message else {return}
             guard let self else {return}
-            let alert = showAlert(text: message, message: "")
-            present(alert, animated: true)
+           showAlert(text: message, message: "")
+            
         }
-        
     }
 }
 

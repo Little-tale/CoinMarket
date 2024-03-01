@@ -46,10 +46,12 @@ class CoinChartViewModel {
             guard let indexPath else {return}
             prefetchCellColorBool(row: indexPath.row)
         }
-        checkedButtonStateInput.bind { [weak self] id in
+        checkedButtonStateInput.bind { [weak self] void in
             guard let self else {return}
-            guard let id else {return}
+            guard let void else {return}
             checkLikeButton()
+            // MARK: 탭바 컨트롤러에게 알립니다.
+            ReloadViewModel.shared.inputLoadView.value = ()
             inputViewdidLoadTrigger.value = ()
         }
     }

@@ -18,7 +18,7 @@ import Kingfisher
 // 서치 컨트롤러를 쓰시려면 네비게이션을 임베디드 해야한다. ok
 //
 
-class SearchViewController: HomeBaseViewController<SearchHomeView> {
+class SearchViewController: HomeBaseViewController<TableHomeView> {
     
     let viewModel = SearchViewModel()
     
@@ -34,42 +34,48 @@ class SearchViewController: HomeBaseViewController<SearchHomeView> {
 // dataSource, delegate etc Setting
 extension SearchViewController {
     func settingOfTableView(){
-        homeView.tableView.delegate = self
-        homeView.tableView.dataSource = self
-        homeView.tableView.rowHeight = UITableView.automaticDimension
-        homeView.tableView.estimatedRowHeight = 50
+        homeView.customTableView.delegate = self
+        homeView.customTableView.dataSource = self
+        homeView.customTableView.rowHeight = UITableView.automaticDimension
+        homeView.customTableView.estimatedRowHeight = 50
     }
 }
 
 extension SearchViewController {
     func subscribe(){
         viewModel.searchOutput.bind {[weak self] _ in
-            self?.homeView.tableView.reloadData()
+            self?.homeView.customTableView.reloadData()
         }
         
         viewModel.errorOutPut.bind { [weak self] error in
             guard let error else {return}
-            let alert = self?.showAlert(error: error)
-            if let alert {
-                self?.present(alert, animated: true)
-            }
+            guard let self else {return}
+            showAlert(error: error)
+    
         }
         viewModel.tableErrorOutput.bind { [weak self] error in
             guard let error else {return}
-            let alert = self?.showAlert(error: error)
-            if let alert {
-                self?.present(alert, animated: true)
-            }
+            guard let self else {return}
+            showAlert(error: error)
+           
         }
         viewModel.saveSuccesOutput.bind { [weak self] success in
             guard let success else {return}
-            let alert = self?.showAlert(text: "즐겨찾기", message: success)
-            if let alert {
-                self?.present(alert, animated: true)
-            }
-            // self?.homeView.tableView.reloadData()
+            guard let self else {return}
+            showAlert(text: "즐겨찾기", message: success)
+            
+            //homeView.tableView.reloadData()
         }
-        
+        // MARK: 이런식으로 하면 무적 권 로드 두번이다.
+        ReloadViewModel.shared.inputLoadView.bind { [weak self] _ in
+            guard let self else {return}
+            homeView.customTableView.reloadData()
+        }
+        viewModel.reloadTrigger.bind { [weak self] void in
+            guard let self else {return}
+            guard let void else {return}
+            homeView.customTableView.reloadData()
+        }
        
     }
 }
@@ -131,7 +137,7 @@ extension SearchViewController {
         print(sender.tag)
         viewModel.coinInfoInput.value = sender.tag
         let cell = IndexPath(row: sender.tag, section: 0)
-        homeView.tableView.reloadRows(at: [cell], with: .automatic)
+//        homeView.tableView.reloadRows(at: [cell], with: .automatic)
     }
 }
 
@@ -161,3 +167,5 @@ extension SearchViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
 }
+
+

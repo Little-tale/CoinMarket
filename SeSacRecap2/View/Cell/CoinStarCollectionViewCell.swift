@@ -35,6 +35,7 @@ class CoinStarCollectionViewCell: BaseCollectionViewCell {
         guard let bool else {return}
         if !bool {return}
         self.contentView.layer.masksToBounds = true
+        
         self.layer.shadowColor = UIColor.black.cgColor
         
         self.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -42,6 +43,7 @@ class CoinStarCollectionViewCell: BaseCollectionViewCell {
         self.layer.shadowRadius = 2
         
         self.layer.shadowOpacity = 0.2
+        
         self.layer.masksToBounds = false
     }
     

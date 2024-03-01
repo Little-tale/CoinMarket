@@ -7,13 +7,17 @@
 
 import Foundation
 
+
+// 혹시 시간이 되신다면 StarViewModel의 글을 읽어주셨으면 합니다...
 class FavoriteCoinViewModel {
     // MARK: input
     var indexPathInput: Observable<Int?> = Observable(nil)
-    var nextIndexPathInput: Observable<Int?> = Observable(nil)
-    // MARK: 트리거
-    var viewWillTrigger: Observable<Void> = Observable(())
     
+    var nextIndexPathInput: Observable<Int?> = Observable(nil)
+    
+    // MARK: 트리거
+    var viewWillTrigger: Observable<Void?> = Observable(nil)
+    var maximViewWillTrigger: Observable<Void?> = Observable(nil)
     // static
     let repository = RealmRepository()
     
@@ -29,7 +33,8 @@ class FavoriteCoinViewModel {
     init(){
         viewWillTrigger.bind {[weak self] _ in
             guard let self else {return}
-            settingCoinList(repository.getFavoriteList())
+            let list = repository.getFavoriteList()
+            settingCoinList(list)
             print("@@@",repository.getFavoriteList().count)
         }
         indexPathInput.bind {[weak self] item in
@@ -43,10 +48,21 @@ class FavoriteCoinViewModel {
             nextCoin(item)
         }
         
+        maximViewWillTrigger.bind {[weak self] _ in
+            guard let self else {return}
+            if 1 > repository.getFavoriteList().count {
+                print("@@@ 3 >")
+                return
+            }
+            print("@@@  3 < ")
+            let list = repository.getFavoriteList()
+            settingCoinList(list)
+            print("@@@",repository.getFavoriteList().count)
+        }
     }
     // 코인 리스트를 가져오고 요청합니다.
     private func settingCoinList(_ coins: [CoinSearchTable]){
-        // print(coins)
+        print("@@@@@@@@",#function)
         let idArray = coins.map { $0.coinId }
         print(idArray)
         if idArray.isEmpty {return}

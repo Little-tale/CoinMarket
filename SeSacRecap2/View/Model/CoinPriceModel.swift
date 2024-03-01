@@ -20,7 +20,9 @@ struct CoinPriceModel {
         self.coinName = coinName
         self.coinImage = coinImage
         self.persentTage = persentTage
-        self.date = "Today"
+        self.date = "Today" // 이게 문제인가보다.....
         self.current = current
     }
 }
+// 이미 너무 많은 강을 건넌거 같은데....
+// 일단 어느정도 채워놓고 고민해보자

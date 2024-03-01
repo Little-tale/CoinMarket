@@ -65,8 +65,7 @@ extension FavoriteCoinViewController {
         viewModel.errorOutput.bind { [weak self] error in
             guard let error else {return}
             guard let self else {return}
-            let alert = showAlert(error: error)
-            present(alert, animated: true)
+            showAlert(error: error)
         }
         viewModel.succesOutPut.bind {[weak self] _ in
             guard let self else {return}
@@ -77,18 +76,15 @@ extension FavoriteCoinViewController {
             guard let coinModel else {return}
             let vc = CoinChartViewController()
             vc.viewModel.coinInfoInput.value = coinModel
-            
             vc.viewModel.inputViewdidLoadTrigger.bind {[weak self] _ in
                 guard let self else {return}
-                viewModel.viewWillTrigger.value = ()
-                homeView.collectionCoinView.reloadData()
+                //viewModel.viewWillTrigger.value = ()
+                //homeView.collectionCoinView.reloadData()
             }
             navigationController?.pushViewController(vc, animated: true)
         }
-        // MARK: 리로드를 했음에도 값이 변하질 않음
     }
 }
-
 
 extension FavoriteCoinViewController {
     func settingNavigation(){
@@ -96,3 +92,20 @@ extension FavoriteCoinViewController {
         navigationItem.title = "Favorite Coin"
     }
 }
+
+// MARK: 죄송합니다 이방법밖에는 더이상..... ㅠㅠ
+extension FavoriteCoinViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillTrigger.value = ()
+    }
+}
+
+/*
+ //        ReloadViewModel.shared.outputLoadView.bind {
+ //            [weak self] void in
+ //            guard let void else {return}
+ //            guard let self else {return}
+ //            viewModel.viewWillTrigger.value = ()
+ //        }
+ */
