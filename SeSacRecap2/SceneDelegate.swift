@@ -16,11 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let nvc = UINavigationController(rootViewController: SearchViewController())
-//        let image = CircleImageView()
-//        image.image = UIImage(named: "tab_user")
-//        let right = UIBarButtonItem(customView: image)
-//        nvc.navigationItem.rightBarButtonItem = right
-        window?.rootViewController = nvc // CoinChartViewController() // nvc
+        let nvc2 = UINavigationController(rootViewController: FavoriteCoinViewController())
+        window?.rootViewController = ChartSearchTabViewController() //nvc2//FavoriteCoinViewController() //  ChartSearchTabViewController() // nvc // CoinChartViewController() // nvc
         window?.makeKeyAndVisible()
     }
 

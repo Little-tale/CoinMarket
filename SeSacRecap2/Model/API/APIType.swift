@@ -17,13 +17,30 @@ import Foundation
 // https://api.coingecko.com/api/v3/
 // coins/markets?vs_currency=krw&ids=bitcoin,wrapped-bitcoin,01coin,1000shib,1hive-water,agoric,agrello,aldrin
 
-
+enum vsCurrency {
+    case kor
+    case jap
+    case usa
+    
+    static var base: String {return "vs_currency="}
+    
+    var query: String {
+        switch self {
+        case .kor:
+            return vsCurrency.base + "krw"
+        case .jap:
+            return vsCurrency.base + "jpy"
+        case .usa:
+            return vsCurrency.base + "usd"
+        }
+    }
+}
 
 
 enum APIType {
     case search(searchText: String)
     case traeding
-    case markets(marketId: [String], spakelType: Bool)
+    case markets(marketId: [String], contry: vsCurrency , spakelType: Bool)
     
     var baseURL: String {
         return "https://api.coingecko.com/api/v3/"
@@ -35,27 +52,15 @@ enum APIType {
             return "search?query=" + searchText
         case .traeding:
             return "search/trending"
-        case .markets(let marketID, let spakelType):
+        case .markets(let marketID,let contry ,let spakelType):
             // 각 ID "asd" 스트링 배열이 있다면
             let results = marketID.joined(separator: ",")
             // https://api.coingecko.com/api/v3/search?query=bitcoin
             if spakelType == true {
-                return "coins/markets?vs_currency=krw&ids=" + results + "&sparkline=true"
+                return "coins/markets?\(contry.query)&ids=" + results + "&sparkline=true"
             }
-            return "coins/markets?vs_currency=krw&ids=" + results
+            return "coins/markets?\(contry.query)&ids=" + results
         }
     }
-    var querys: String{
-        switch self {
-        case .search(let searchText):
-            <#code#>
-        case .traeding:
-            <#code#>
-        case .markets(let marketId, let spakelType):
-            <#code#>
-        }
-    }
-    
-    
 }
 

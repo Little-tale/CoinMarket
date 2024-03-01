@@ -18,6 +18,7 @@ enum RepositoryError: Error{
     case canAddYourObject
     case deleteFail
     
+    
     var title: String{
         return "데이터 베이스 오류!"
     }
@@ -31,20 +32,23 @@ enum RepositoryError: Error{
     }
 }
 
-class RealmRepository {
+final class RealmRepository {
     
     let realm = try! Realm()
-    let coinRealmTable = CoinRealmTable.self
+    let coinRealmTable = CoinSearchTable.self
     
     var canIFavorite: Bool{
-        if 9 < realm.objects(coinRealmTable.self).count{
+        print(realm.configuration.fileURL)
+        let count = realm.objects(coinRealmTable.self).where { $0.buttonBool == true}.count
+        
+        if 9 < count{
             print("@@@@@ false")
             return false
         }
         print("@@@@@ true")
         return true
     }
-    
+    // 안쓸수도 있자만 일단 구현
     func removeLastFavoriteButton() throws {
         do{
             try realm.write {
@@ -60,9 +64,6 @@ class RealmRepository {
     // MARK: 새로짠 코인 테이블
     func newOrDeleteFavoriteCoin(coin: Coin) -> Result<String, RepositoryError>{
         print(realm.configuration.fileURL)
-        
-        let makeObject = CoinRealmTable(coinId: coin.id, coinName: coin.name, coinsymbol: coin.symbol, coinImage: coin.thumb)
-        
         var message = ""
         do {
             try realm.write {
@@ -70,6 +71,7 @@ class RealmRepository {
                     realm.delete(dataSame)
                     message = "즐겨찾기를 제거!"
                 } else {
+                    let makeObject = CoinSearchTable(coinId: coin.id, coinName: coin.name, coinsymbol: coin.symbol, coinImage: coin.thumb)
                     realm.add(makeObject)
                     message = "즐겨찾기를 추가!"
                 }
@@ -80,13 +82,70 @@ class RealmRepository {
         }
     }
     
+    func newOrDeleteFavoriteCoin(table: CoinSearchTable) -> Result<String, RepositoryError>{
+        print(realm.configuration.fileURL)
+        var message = ""
+        do {
+            try realm.write {
+                if let dataSame = realm.objects(coinRealmTable).where({ $0.coinId == table.coinId }).first {
+                    realm.delete(dataSame)
+                    message = "즐겨찾기를 제거!"
+                } else {
+                    let makeObject = CoinSearchTable(coinId: table.coinId, coinName: table.coinName, coinsymbol: table.coinsymbol, coinImage: table.coinImage)
+                    realm.add(makeObject)
+                    message = "즐겨찾기를 추가!"
+                }
+            }
+            return .success(message)
+        }catch {
+            return .failure(.canAddYourObject)
+        }
+    }
     
+    // 조건없이 coin 테이블을 생성합니다.
+//    func makeCoinTable(coin: Coin) throws {
+//        let result = CoinSearchTable(coinId: coin.id, coinName: coin.name, coinsymbol: coin.symbol, coinImage: coin.thumb)
+//        do {
+//            try realm.write {
+//                realm.add(result)
+//            }
+//        } catch {
+//            throw RepositoryError.canAddYourObject
+//        }
+//    }
+//    
+    
+    // MARK: 즐겨찾기를 찾아드립니다.
     func findFavorite(_ id: String) -> Bool{
+        print(realm.configuration.fileURL)
         if let sameData = realm.objects(coinRealmTable.self).where({ $0.coinId == id }).first {
-            return true
+            if sameData.buttonBool {
+                return true
+            }else {
+                return false
+            }
         } else {
             return false
         }
+    }
+    
+    // MARK: 즐겨찾기 상태를 토글합니다.
+    func changeLikeState(_ id: String) -> Result<String, RepositoryError>{
+        print(realm.configuration.fileURL)
+        if let sameData = realm.objects(coinRealmTable.self).where({ $0.coinId == id }).first {
+            do {
+                try realm.write {
+                    sameData.buttonBool.toggle()
+                }
+                if sameData.buttonBool {
+                    return .success("즐겨찾기 추가하였습니다.")
+                }
+                return .success("즐겨찾기 취소하였습니다.")
+            } catch {
+                return .failure(.canAddYourObject)
+            }
+        }
+        return .failure(.canAddYourObject)
     }
     
     func deleteOf(_ id: String) {
@@ -100,8 +159,24 @@ class RealmRepository {
             print(error)
         }
     }
+    // 현재 모든 코인을 가져옵니다.
+    func getFavoriteList() -> [CoinSearchTable] {
+        let results = realm.objects(coinRealmTable)
+        let array = Array(results)
+        return array
+    }
+    
+    // id를 조회해 코인 테이블을 가져옵니다.
+    func getCoin(_ id: String) -> CoinSearchTable? {
+        let data = realm.objects(coinRealmTable).where { $0.coinId == id }
+        let array = Array(data)
+        return array.first
+    }
     
 }
+
+
+
 /*
  func removeLast<T: Object>(type: T.Type){
      do{

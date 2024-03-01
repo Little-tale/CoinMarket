@@ -49,12 +49,15 @@ struct ChartDatasetFactory {
         colorAsset: ColorEssets,
         entries: [ChartDataEntry]
     ) -> LineChartDataSet {
+        
         var dataSet = LineChartDataSet(entries: entries, label: "")
 
         // chart main settings
         dataSet.setColor(colorAsset.color)
-        dataSet.lineWidth = 3
+        dataSet.lineWidth = 2
+        
         dataSet.mode = .cubicBezier // 둥글기
+        
         dataSet.drawValuesEnabled = false // disble values
         dataSet.drawCirclesEnabled = false // 동글뱅이 제거
         dataSet.drawFilledEnabled = true // gradient setting
@@ -63,10 +66,8 @@ struct ChartDatasetFactory {
         dataSet.drawHorizontalHighlightIndicatorEnabled = false 
         dataSet.drawVerticalHighlightIndicatorEnabled = false
         
-        dataSet.highlightLineWidth = 1// vertical line width
-        
         dataSet.highlightColor = colorAsset.color // vertical line color
-
+    
         addGradient(to: &dataSet, colorAsset: colorAsset)
 
         return dataSet
@@ -75,31 +76,29 @@ struct ChartDatasetFactory {
 
 
 private extension ChartDatasetFactory {
-    
-    
     // inout이 뭐야? 매개변수를 받아서 그놈을 바꿀꺼야 하지만 그놈은
     // &라는 딱지를 붙여
     func addGradient(
         to dataSet: inout LineChartDataSet,
         colorAsset: ColorEssets
     ) {
-        let mainColor = colorAsset.color.withAlphaComponent(0.9)
-        let secondaryColor = colorAsset.color.withAlphaComponent(0.5)  // colorAsset.color.withAlphaComponent(0.8)
-        let fore = colorAsset.color.withAlphaComponent(0)// colorAsset.color.withAlphaComponent(0)
+        let mainColor = colorAsset.color
+        let secondaryColor = colorAsset.color.withAlphaComponent(0.4)
+        let fore = colorAsset.color.withAlphaComponent(0)
         let colors = [
             mainColor.cgColor,
             secondaryColor.cgColor,
             fore.cgColor
         ] as CFArray
         
-        let locations: [CGFloat] = [0, 0.79, 1]
+        let locations: [CGFloat] = [0, 0.8, 1]
         if let gradient = CGGradient(
             colorsSpace: CGColorSpaceCreateDeviceRGB(),
             colors: colors,
             locations: locations
         ) {
-            print(UIScreen.main.bounds.width / 2)
-            dataSet.fill = LinearGradientFill(gradient: gradient, angle: UIScreen.main.bounds.width / 2)
+            
+            dataSet.fill = LinearGradientFill(gradient: gradient, angle: 270)
         }
     }
 }

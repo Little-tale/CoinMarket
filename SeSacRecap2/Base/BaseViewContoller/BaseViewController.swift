@@ -5,9 +5,16 @@
 //  Created by Jae hyung Kim on 2/27/24.
 //
 
+class ObservedTest {
+    var notification: Observable<Void?> = Observable(nil)
+}
+
 import UIKit
 
 class BaseViewController: UIViewController {
+    
+    let myNotification = ObservedTest()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

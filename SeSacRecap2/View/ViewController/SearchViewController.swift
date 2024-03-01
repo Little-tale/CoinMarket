@@ -67,8 +67,9 @@ extension SearchViewController {
             if let alert {
                 self?.present(alert, animated: true)
             }
-            self?.homeView.tableView.reloadData()
+            // self?.homeView.tableView.reloadData()
         }
+        
        
     }
 }
@@ -76,6 +77,7 @@ extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchInPut.value = searchBar.text
+
     }
 }
 // MARK: 테이블 뷰 데이타 소스 딜리게이트
@@ -94,8 +96,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.nameLabel.text = data.name
         cell.nameLabel.asFont(targetString: viewModel.searchInPut.value ?? "")
         
-        cell.rightButton.layer.name = data.id
         cell.rightButton.tag = indexPath.row
+        
         cell.subNameLabel.text = data.symbol
         
         viewModel.coinButtonActive.value = data.id
@@ -108,12 +110,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: 테이블 셀 선택시 다음컨트롤러 CoinViewCon으로 이동
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CoinChartViewController()
-        tableView.deselectRow(at: indexPath, animated: true)
+       
        let data = viewModel.searchOutput.value[indexPath.row]
-        
         vc.viewModel.coinInfoInput.value = data
         
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         navigationController?.pushViewController(vc, animated: true)
+        vc.viewModel.inputViewdidLoadTrigger.bind {[weak self] _ in
+            guard let self else {return}
+            tableView.reloadData()
+        }
     }
     
 }
@@ -122,9 +128,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController {
     @objc
     func favoriteButtonClicked(_ sender: UIButton){
-        // viewModel.coinIdInput.value = sender.layer.name
         print(sender.tag)
         viewModel.coinInfoInput.value = sender.tag
+        let cell = IndexPath(row: sender.tag, section: 0)
+        homeView.tableView.reloadRows(at: [cell], with: .automatic)
     }
 }
 

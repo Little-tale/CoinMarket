@@ -13,12 +13,17 @@ class HomeBaseViewController<T:BaseView>: UIViewController {
     
     override func loadView() {
         view = homeView
+        homeView.backgroundColor = .white
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        delegateDatasource()
     }
     
+    func delegateDatasource(){
+        
+    }
     
 }

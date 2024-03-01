@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import DGCharts
+// MARK: 드디어 전뷰랑 연동이 되었다 ㅠㅠㅠㅠ
 
 enum CharSection:Int, CaseIterable {
     case high
@@ -59,7 +60,8 @@ class CoinChartViewController: BaseViewController {
         navigationSetting() // 네비게이션 세팅
         view.backgroundColor = .white
         subscribe() // 구독
-        settingChart()// 차트뷰 세팅
+        // 차트뷰 세팅
+        
     }
     override func configureHierarchy() {
         view.addSubview(mainCoinView)
@@ -82,9 +84,7 @@ class CoinChartViewController: BaseViewController {
         }
         
     }
-    override func designView() {
-        
-    }
+
 }
 
 //MARK: 컬렉션뷰 세팅
@@ -135,12 +135,12 @@ extension CoinChartViewController: UICollectionViewDelegate, UICollectionViewDat
 extension CoinChartViewController {
     static func configureCellLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        
         let spacing : CGFloat = 4
         let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
         layout.itemSize = CGSize(width: cellWidth / 2, height: 180) // 셀의 크기
         layout.sectionInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
         layout.scrollDirection = .horizontal
+        
         return layout
     }
 
@@ -150,6 +150,12 @@ extension CoinChartViewController {
     func navigationSetting(){
         navigationController?.navigationBar.showsLargeContentViewer = false
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    // MARK: 문제상황
+    @objc // MARK: 어떻게 해야할까.
+    func likeButtonState(_ sender: UIButton){
+        print(#function)
+        viewModel.checkedButtonStateInput.value = ()
     }
 }
 
@@ -173,27 +179,50 @@ extension CoinChartViewController {
             let lineData = LineChartData(dataSet: line)
             let test = ChartDatasetFactory().makeChartDataset(colorAsset: .myPuPle, entries: datas)
             let test2 = LineChartData(dataSet: test)
-            lineChartView.data = test2
+            
+            settingChart(data:test2)
         }
+        
+        viewModel.firstButtonState.bind { [weak self] result in
+            guard let self else {return}
+            guard let result else {return}
+            
+            let button = StarButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            button.addTarget(self, action: #selector(likeButtonState), for: .touchUpInside)
+            button.isSelected = result
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+            viewModel.inputViewdidLoadTrigger.value = ()
+        }
+        viewModel.errorOutPut.bind {[weak self] message in
+            guard let message else {return}
+            guard let self else {return}
+            let alert = showAlert(text: message, message: "")
+            present(alert, animated: true)
+        }
+        
     }
 }
 
 extension CoinChartViewController {
-    func settingChart(){
+    func settingChart(data: LineChartData){
         // disable grid
         lineChartView.xAxis.drawGridLinesEnabled = false
         lineChartView.leftAxis.drawGridLinesEnabled = false
         lineChartView.rightAxis.drawGridLinesEnabled = false
         lineChartView.drawGridBackgroundEnabled = false
+        
         // disable axis annotations
         lineChartView.xAxis.drawLabelsEnabled = false
         lineChartView.leftAxis.drawLabelsEnabled = false
         lineChartView.rightAxis.drawLabelsEnabled = false
+        
         // disable legend
         lineChartView.legend.enabled = false
+        
         // disable zoom
         lineChartView.pinchZoomEnabled = false
-        lineChartView.doubleTapToZoomEnabled = false
+        lineChartView.doubleTapToZoomEnabled = true
+        
         // remove artifacts around chart area
         lineChartView.xAxis.enabled = false
         lineChartView.leftAxis.enabled = false
@@ -201,8 +230,16 @@ extension CoinChartViewController {
         lineChartView.drawBordersEnabled = false
         
         
+        // 1시간 넘게 찾았다 평평한 느낌!
+       let dataAver = data.yMax - data.yMin
+
+        lineChartView.leftAxis.axisMinimum = data.yMin - dataAver
+        // print(Double((data.count) * 2))
+        // lineChartView.xAxis.axisMaximum = 100 //Double((data.count) * 2)
+        print( data.yMax, "@@@", data.yMin, "@@@",data.xMin, "@@@",data.xMax)
+        
         lineChartView.minOffset = 0
-        lineChartView.extraBottomOffset = 20
+        lineChartView.data = data
     }
 }
 

@@ -9,6 +9,8 @@ import UIKit
 
 class BaseView: UIView {
     
+    var myNotification = ObservedTest()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         all()

@@ -22,8 +22,8 @@ class NumberFormetter {
     }
     
     func presentation(persentage: Double) -> String {
-        let formattedString = String(format: "%.2f",  persentage)
+        let formattedString = String(format: "%+.2f%%",  persentage)
         // "556.58"
-        return formattedString + "%"
+        return formattedString
     }
 }

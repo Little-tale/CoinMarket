@@ -24,6 +24,7 @@ class StarButton: UIButton {
     }
     
     private func setting(){
+        
         self.setImage(UIImage(named: "btn_star_fill") , for: .selected)
         self.setImage(UIImage(named: "btn_star"), for: .normal)
     }

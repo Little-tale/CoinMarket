@@ -14,6 +14,11 @@ class CoinChartViewModel {
     // INPUT
     var coinInfoInput: Observable<Coin?> = Observable(nil)
     var cellTextColorInput: Observable<IndexPath?> = Observable(nil)
+    var checkedButtonStateInput: Observable<Void?> = Observable(nil)
+   
+    
+    // MARK: 트리거
+    var inputViewdidLoadTrigger: Observable<Void> = Observable(())
     
     // OUTPUT
     var mainCoinInfoOutput: Observable<CoinPriceModel?> = Observable(nil)
@@ -21,22 +26,61 @@ class CoinChartViewModel {
     var cellectionCellColorBool: Observable<Bool?> = Observable(nil)
     var chartDataOutPut: Observable<[Double]> = Observable([])
     
+    var firstButtonState: Observable<Bool?> = Observable(nil)
+    var errorOutPut: Observable<String?> = Observable(nil)
+    
+    // Static
+    var repository = RealmRepository()
+    
+    
     init() {
         coinInfoInput.bind {[weak self] coin in
             guard let coin else {return}
             guard let self else {return}
             fetch(coin)
+            checkLikeButton(coin.id)
         }
+       
         cellTextColorInput.bind { [weak self] indexPath in
             guard let self else {return}
             guard let indexPath else {return}
             prefetchCellColorBool(row: indexPath.row)
         }
+        checkedButtonStateInput.bind { [weak self] id in
+            guard let self else {return}
+            guard let id else {return}
+            checkLikeButton()
+            inputViewdidLoadTrigger.value = ()
+        }
     }
+    // MARK: 이부분을 좀더 단단하게 해야 해결할듯
+    private func checkLikeButton(_ id: String){
+        let bool = repository.findFavorite(id)
+        firstButtonState.value = bool
+    }
+        
+    private func checkLikeButton(){
+        if let coin = coinInfoInput.value {
+            // 메시지
+            let result = repository.newOrDeleteFavoriteCoin(coin: coin)
+            switch result {
+            case .success(let success):
+                errorOutPut.value = success
+            case .failure(let failure):
+                errorOutPut.value = failure.title
+            }
+            // 버튼 상태
+            let bool = repository.findFavorite(coin.id)
+            firstButtonState.value = bool
+        }
+    }
+    
+    
+    
     /// 성공시 [CoinMarket] 반환받음 1차시동 성공 []가 여긴 하나라 그냥 벗겨야함
     /// 실패시 APIError 를 반환받음
     private func fetch(_ coin: Coin){
-        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: [coin.id], spakelType: true)) { results in
+        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: [coin.id], contry: .kor, spakelType: true)) { results in
             switch results {
             case .success(let success):
                 guard let result =  success.first else {return}
@@ -49,6 +93,23 @@ class CoinChartViewModel {
             }
         }
     }
+    private func fetch(_ table: CoinSearchTable) {
+        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: [table.coinId], contry: .kor, spakelType: true)) { results in
+            switch results {
+            case .success(let success):
+                guard let result =  success.first else {return}
+                print(result)
+                self.prefetchCoinMainInfo(coinMarket: result)
+                self.prefetchCoinHighLowInfo(coinMarket: result)
+                self.prefetchChartData(market: result)
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    
+    
     ///코인정보를 전달합니다.
     private func prefetchCoinMainInfo(coinMarket : CoinMarket){
         let coinModel = CoinPriceModel(coinName: coinMarket.name, coinImage: coinMarket.image, persentTage: coinMarket.priceChangePercentage24H, current: coinMarket.currentPrice)
@@ -91,4 +152,31 @@ class CoinChartViewModel {
  let atl: Double? // 코인 사상 최저가 (신고점, ALL-Time-Low)
  let lastUpdated: String? // 코인 시장 데이터 업데이트 시각
  let sparklineIn7D: SparklineIn7D? // 일주일간 코인 시세 정보
+ */
+
+/*
+ var coinTableInfoInput: Observable<CoinSearchTable?> = Observable(nil)
+ 
+ coinTableInfoInput.bind { [weak self] table in
+     guard let table else {return}
+     guard let self else {return}
+     fetch(table)
+     checkLikeButton(table.coinId)
+ }
+ private
+ func test(){
+     if let table = coinTableInfoInput.value {
+         let result = repository.newOrDeleteFavoriteCoin(table: table)
+         switch result {
+         case .success(let success):
+             errorOutPut.value = success
+         case .failure(let failure):
+             errorOutPut.value = failure.title
+         }
+         // 버튼 상태
+         print(table)
+         let bool = repository.findFavorite(table.coinId)
+         firstButtonState.value = bool
+     }
+ }
  */
