@@ -19,23 +19,28 @@ class TopCoinCollectionViewCell: BaseCollectionViewCell{
         contentView.addSubview(rankLabel)
         contentView.addSubview(coinInfoView)
         contentView.addSubview(coinPriceView)
+        rankLabel.backgroundColor = .red
+        coinInfoView.backgroundColor = .myPink
+        coinPriceView.backgroundColor = .myblue
+        coinPriceView.persantageLable.backgroundColor = .mypurple
+        coinPriceView.priceLabel.backgroundColor = .brown
     }
     override func configureLayout() {
-        rankLabel.snp.makeConstraints { make in
+        rankLabel.snp.remakeConstraints { make in
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(8)
             make.centerY.equalToSuperview()
-            make.width.equalTo(14)
+            make.width.equalTo(24)
         }
-        coinInfoView.snp.makeConstraints { make in
+        coinInfoView.snp.remakeConstraints { make in
             make.leading.equalTo(rankLabel.snp.trailing).offset(4)
             make.centerY.equalToSuperview()
             make.verticalEdges.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
         }
-        coinPriceView.snp.makeConstraints { make in
+        coinPriceView.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().inset( -8 )
             make.centerY.equalToSuperview()
-            make.leading.greaterThanOrEqualTo(coinInfoView.snp.trailing).offset(8)
+            make.leading.lessThanOrEqualTo(coinInfoView.snp.trailing).offset(8)
         }
         
     }
@@ -43,7 +48,8 @@ class TopCoinCollectionViewCell: BaseCollectionViewCell{
     override func designView() {
         coinPriceView.coinViewModel.alimentCase.value = .right
         subscribe()
-    
+        rankLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        
     }
     deinit{
         print("@@@@",#function, self)

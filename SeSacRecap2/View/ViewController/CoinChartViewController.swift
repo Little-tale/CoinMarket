@@ -229,11 +229,10 @@ extension CoinChartViewController {
         lineChartView.rightAxis.enabled = false
         lineChartView.drawBordersEnabled = false
         
-        
         // 1시간 넘게 찾았다 평평한 느낌!
        let dataAver = data.yMax - data.yMin
-
         lineChartView.leftAxis.axisMinimum = data.yMin - dataAver
+        
         // print(Double((data.count) * 2))
         // lineChartView.xAxis.axisMaximum = 100 //Double((data.count) * 2)
         print( data.yMax, "@@@", data.yMin, "@@@",data.xMin, "@@@",data.xMax)

@@ -46,9 +46,10 @@ class ChartSearchTabViewController: UITabBarController {
         super.viewDidLoad()
         
         delegate = self
-        let trentViewController =  TrendingViewController()
+        let trentViewController =  NewTrendViewController()
         let searchViewController = SearchViewController()
         let FavoriteViewController = FavoriteCoinViewController()
+        
         
         let nvc3 = UINavigationController(rootViewController: trentViewController)
         

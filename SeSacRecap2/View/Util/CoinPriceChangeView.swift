@@ -47,7 +47,7 @@ class CoinPriceChangeView: BaseView {
         persantageLable.font = .systemFont(ofSize: 14, weight: .semibold)
         persantageLable.textAlignment = .center
     }
-    func updateLayout(_ aliment: Alignment) {
+    private func updateLayout(_ aliment: Alignment) {
         persantageLable.snp.remakeConstraints { make in
             make.bottom.equalToSuperview().inset(8)
             make.width.equalToSuperview().multipliedBy(0.4)
@@ -77,6 +77,7 @@ class CoinPriceChangeView: BaseView {
             guard let self else {return}
             guard let percent else {return}
             persantageLable.text = percent
+            print("^^^^^^^ percent",percent)
         }
         coinViewModel.priceProcessing.bind { [weak self] price in
             guard let self else {return}

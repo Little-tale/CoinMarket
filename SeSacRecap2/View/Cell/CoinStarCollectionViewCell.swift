@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class CoinStarCollectionViewCell: BaseCollectionViewCell {
+    
     let coinInfoView = CoinInfoView()
    let coinPriceChangeView = CoinPriceChangeView()
     
@@ -17,14 +18,16 @@ class CoinStarCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(coinPriceChangeView)
     }
     override func configureLayout() {
-        coinInfoView.snp.makeConstraints { make in
+        coinInfoView.snp.remakeConstraints { make in
             make.horizontalEdges.top.equalTo(contentView.safeAreaLayoutGuide)
             make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
-        coinPriceChangeView.snp.makeConstraints { make in
+        coinPriceChangeView.snp.remakeConstraints { make in
             make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide)
             make.top.equalTo(coinInfoView.snp.bottom)
         }
+        // coinInfoView.backgroundColor = .red
+        // coinPriceChangeView.backgroundColor = .myblue
     }
     override func prepareForReuse() {
         super.prepareForReuse()

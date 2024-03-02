@@ -24,7 +24,7 @@ class Top15Top7ViewModel {
     
     init(){
         viewWillTrigger.bind { [weak self] void in
-            guard let void else {return}
+            guard void != nil else {return}
             guard let self else {return}
             fetch()
         }
@@ -54,7 +54,7 @@ class Top15Top7ViewModel {
     private func divideStruct(_ trending : Trending){
         coinItem.value = trending.coins
         outputNfts.value = trending.nfts
-        completeOutput.value = ()
+        
     }
     // MARK: coin 정렬
     private func sortedFfts(_ coin: [CoinItem]){
@@ -62,7 +62,8 @@ class Top15Top7ViewModel {
             return first.item.market_cap_rank < second.item.market_cap_rank
         }
         outputCoinItem.value = sorted
-        dump(sorted)
+        // dump(sorted)
+        completeOutput.value = ()
     }
     
 }

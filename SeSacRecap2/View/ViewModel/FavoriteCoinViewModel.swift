@@ -28,6 +28,8 @@ class FavoriteCoinViewModel {
     let coinPriceModelOutPut: Observable<CoinPiceModel?> = Observable(nil)
     let nextCoinOutPut: Observable<Coin?> = Observable(nil)
     
+    let testOiu :Observable<Void?> = Observable(nil)
+    
     
     init(){
         viewWillTrigger.bind {[weak self] Void in
@@ -51,9 +53,13 @@ class FavoriteCoinViewModel {
         maximViewWillTrigger.bind {[weak self] void in
             guard let self else {return}
             guard void != nil else {return}
-            if 6 > repository.getFavoriteList().count {
+            if 2 > repository.getFavoriteList().count {
+                
                 print("@@@ 3 >")
+                print("^^^ 2 >")
+                
                 succesOutPut.value = nil
+                testOiu.value = ()
                 return
             }
             print("@@@  3 < ")
@@ -74,28 +80,14 @@ class FavoriteCoinViewModel {
             switch result {
             case .success(let success):
                 succesOutPut.value = success
+                print("^^^success")
             case .failure(let failure):
                 errorOutput.value = failure
+                print("^^^failure")
             }
         }
     }
-//    private func settingMaxCoinList(_ coins: [CoinSearchTable]){
-//        print("@@@@@@@@",#function)
-//        let idArray = coins.map { $0.coinId }
-//        print(idArray)
-//        if idArray.isEmpty {return}
-//        
-//        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: idArray, contry: .kor, spakelType: false)) {  [weak self] result in
-//            guard let self else {return}
-//            switch result {
-//            case .success(let success):
-//                succesOutPut.value = success
-//            case .failure(let failure):
-//                errorOutput.value = failure
-//            }
-//        }
-//    }
-    
+
     private func processCoinList(_ item: Int){
         guard let value = succesOutPut.value else {return}
         let data = value[item]
@@ -116,3 +108,20 @@ class FavoriteCoinViewModel {
         nextCoinOutPut.value = coin
     }
 }
+//    private func settingMaxCoinList(_ coins: [CoinSearchTable]){
+//        print("@@@@@@@@",#function)
+//        let idArray = coins.map { $0.coinId }
+//        print(idArray)
+//        if idArray.isEmpty {return}
+//
+//        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: idArray, contry: .kor, spakelType: false)) {  [weak self] result in
+//            guard let self else {return}
+//            switch result {
+//            case .success(let success):
+//                succesOutPut.value = success
+//            case .failure(let failure):
+//                errorOutput.value = failure
+//            }
+//        }
+//    }
+    
