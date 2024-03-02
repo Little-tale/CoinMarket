@@ -15,9 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let nvc = UINavigationController(rootViewController: SearchViewController())
-        let nvc2 = UINavigationController(rootViewController: FavoriteCoinViewController())
-        window?.rootViewController = ChartSearchTabViewController() // TrendingViewController() // ChartSearchTabViewController() //nvc2//FavoriteCoinViewController() //  ChartSearchTabViewController() // nvc // CoinChartViewController() // nvc
+        //let nvc = UINavigationController(rootViewController: SearchViewController())
+        //let nvc2 = UINavigationController(rootViewController: FavoriteCoinViewController())
+        window?.rootViewController = ChartSearchTabViewController()
+        //ChartSearchTabViewController() // TrendingViewController() // ChartSearchTabViewController() //nvc2//FavoriteCoinViewController() //  ChartSearchTabViewController() // nvc // CoinChartViewController() // nvc
         window?.makeKeyAndVisible()
     }
 

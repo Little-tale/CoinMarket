@@ -73,7 +73,7 @@ extension SearchViewController {
         }
         viewModel.reloadTrigger.bind { [weak self] void in
             guard let self else {return}
-            guard let void else {return}
+            guard void != nil else {return}
             homeView.customTableView.reloadData()
         }
        

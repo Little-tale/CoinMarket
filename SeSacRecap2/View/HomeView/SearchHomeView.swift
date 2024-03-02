@@ -23,6 +23,9 @@ class TableHomeView: BaseView {
     override func register() {
         super.register()
         customTableView.register(CoinDetailButtonCell.self, forCellReuseIdentifier: CoinDetailButtonCell.reusableIdentifier)
+        
         customTableView.register(TableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: TableInCollectionFavoriteTableCell.reusableIdentifier)
+        
+        customTableView.register(NewTableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: NewTableInCollectionFavoriteTableCell.reusableIdentifier)
     }
 }

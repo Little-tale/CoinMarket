@@ -34,6 +34,16 @@ enum vsCurrency {
             return vsCurrency.base + "usd"
         }
     }
+    var priceCase: String {
+        switch self{
+        case .kor:
+            return "₩"
+        case .jap:
+            return "¥"
+        case .usa:
+            return "$"
+        }
+    }
 }
 
 

@@ -13,9 +13,11 @@ enum Alignment {
 }
 class CoinPriceChangeViewModel {
     var alimentCase: Observable<Alignment> = Observable(.left)
+    var inputCuntry: Observable<vsCurrency> = Observable(.usa)
     
     var coinPriceModel: Observable<CoinPiceModel?> = Observable(nil)
     
+    var coinPriceModelString: Observable<CoinPriceModelString?> = Observable(nil)
     
     var isPlusOrNot: Observable<Bool?> = Observable(nil)
     var priceProcessing: Observable<String?> = Observable(nil)
@@ -26,6 +28,11 @@ class CoinPriceChangeViewModel {
             guard let self else {return}
             guard let coinModel else {return}
             processing(coinModel)
+        }
+        coinPriceModelString.bind {  [weak self] coinModel in
+            guard let self else {return}
+            guard let coinModel else {return}
+            
         }
     }
     private func processing(_ coin: CoinPiceModel){
@@ -41,6 +48,14 @@ class CoinPriceChangeViewModel {
         }else {
             isPlusOrNot.value = true
         }
+    }
+    private func processing(_ coin: CoinPriceModelString){
+        let price = NumberFormetter.shared.rounded(coin.price, type: inputCuntry.value)
+        
+        let persent = NumberFormetter.shared.rounded(coin.percentage, type: inputCuntry.value)
+        
+        priceProcessing.value = price
+        percentageProcessing.value = persent
     }
     
 }

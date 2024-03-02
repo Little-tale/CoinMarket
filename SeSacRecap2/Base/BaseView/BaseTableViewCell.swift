@@ -21,6 +21,7 @@ class BaseTableViewCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
         designView()
+        registers()
     }
     
     func configureHierarchy(){

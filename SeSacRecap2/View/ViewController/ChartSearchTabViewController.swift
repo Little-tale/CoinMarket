@@ -46,14 +46,16 @@ class ChartSearchTabViewController: UITabBarController {
         super.viewDidLoad()
         
         delegate = self
-        
+        let trentViewController =  TrendingViewController()
         let searchViewController = SearchViewController()
         let FavoriteViewController = FavoriteCoinViewController()
+        
+        let nvc3 = UINavigationController(rootViewController: trentViewController)
         
         let nvc = UINavigationController(rootViewController: searchViewController)
         let nvc2 = UINavigationController(rootViewController: FavoriteViewController)
         
-        self.setViewControllers([UIViewController(),nvc,nvc2], animated: true)
+        self.setViewControllers([nvc3,nvc,nvc2], animated: true)
         
         if let items = tabBar.items {
             items.enumerated().forEach { [weak self] index, item in

@@ -52,6 +52,8 @@ struct Item: Decodable {
     let symbol: String // 코인 통화 단위
     let small: String // 코인 아이콘 리소스
     let data: ItemData
+    let market_cap_rank: Int
+ 
 }
 
 
@@ -74,12 +76,10 @@ struct Nft: Decodable {
     let symbol: String
     let thumb: String
     let data: NftData
-    let marketCapRank: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case name, symbol, thumb
         case data
-        case marketCapRank = "market_cap_rank"
     }
 }
 

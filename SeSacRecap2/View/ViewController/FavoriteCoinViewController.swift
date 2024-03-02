@@ -54,7 +54,6 @@ extension FavoriteCoinViewController: UICollectionViewDelegate, UICollectionView
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.nextIndexPathInput.value = indexPath.item
-       
     }
     
 }

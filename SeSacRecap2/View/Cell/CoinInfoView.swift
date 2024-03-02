@@ -35,7 +35,7 @@ class CoinInfoView: BaseView {
     }
     override func configureLayout() {
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(self.snp.width).dividedBy(4.2)
+            make.size.equalTo(40)
             make.leading.equalToSuperview().offset(10)
             make.top.equalToSuperview().offset(10)
         }

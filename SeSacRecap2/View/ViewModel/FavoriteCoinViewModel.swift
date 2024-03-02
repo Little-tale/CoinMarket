@@ -12,7 +12,6 @@ import Foundation
 class FavoriteCoinViewModel {
     // MARK: input
     var indexPathInput: Observable<Int?> = Observable(nil)
-    
     var nextIndexPathInput: Observable<Int?> = Observable(nil)
     
     // MARK: 트리거
@@ -31,8 +30,9 @@ class FavoriteCoinViewModel {
     
     
     init(){
-        viewWillTrigger.bind {[weak self] _ in
+        viewWillTrigger.bind {[weak self] Void in
             guard let self else {return}
+            guard Void != nil else {return}
             let list = repository.getFavoriteList()
             settingCoinList(list)
             print("@@@",repository.getFavoriteList().count)
@@ -47,11 +47,13 @@ class FavoriteCoinViewModel {
             guard let item else {return}
             nextCoin(item)
         }
-        
-        maximViewWillTrigger.bind {[weak self] _ in
+        // MARK: 제출전에는 2으로 재수정
+        maximViewWillTrigger.bind {[weak self] void in
             guard let self else {return}
-            if 1 > repository.getFavoriteList().count {
+            guard void != nil else {return}
+            if 6 > repository.getFavoriteList().count {
                 print("@@@ 3 >")
+                succesOutPut.value = nil
                 return
             }
             print("@@@  3 < ")
@@ -64,7 +66,7 @@ class FavoriteCoinViewModel {
     private func settingCoinList(_ coins: [CoinSearchTable]){
         print("@@@@@@@@",#function)
         let idArray = coins.map { $0.coinId }
-        print(idArray)
+        print("@@@@**", idArray)
         if idArray.isEmpty {return}
         
         APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: idArray, contry: .kor, spakelType: false)) {  [weak self] result in
@@ -77,6 +79,22 @@ class FavoriteCoinViewModel {
             }
         }
     }
+//    private func settingMaxCoinList(_ coins: [CoinSearchTable]){
+//        print("@@@@@@@@",#function)
+//        let idArray = coins.map { $0.coinId }
+//        print(idArray)
+//        if idArray.isEmpty {return}
+//        
+//        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: idArray, contry: .kor, spakelType: false)) {  [weak self] result in
+//            guard let self else {return}
+//            switch result {
+//            case .success(let success):
+//                succesOutPut.value = success
+//            case .failure(let failure):
+//                errorOutput.value = failure
+//            }
+//        }
+//    }
     
     private func processCoinList(_ item: Int){
         guard let value = succesOutPut.value else {return}

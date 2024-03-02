@@ -117,7 +117,7 @@ final class RealmRepository {
     
     // MARK: 즐겨찾기를 찾아드립니다.
     func findFavorite(_ id: String) -> Bool{
-        print(realm.configuration.fileURL)
+        // print(realm.configuration.fileURL)
         if let sameData = realm.objects(coinRealmTable.self).where({ $0.coinId == id }).first {
             if sameData.buttonBool {
                 return true
@@ -131,7 +131,7 @@ final class RealmRepository {
     
     // MARK: 즐겨찾기 상태를 토글합니다.
     func changeLikeState(_ id: String) -> Result<String, RepositoryError>{
-        print(realm.configuration.fileURL)
+        // print(realm.configuration.fileURL)
         if let sameData = realm.objects(coinRealmTable.self).where({ $0.coinId == id }).first {
             do {
                 try realm.write {

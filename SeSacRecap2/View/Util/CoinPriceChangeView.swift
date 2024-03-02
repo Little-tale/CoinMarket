@@ -17,6 +17,20 @@ struct CoinPiceModel{
     }
 }
 
+struct CoinPriceModelString{
+    var price: String
+    var percentage: String
+    init(price: String, percentage: String) {
+        self.price = price
+        self.percentage = percentage
+    }
+    
+    init(price: String, psercentage: Double){
+        self.price = price
+        self.percentage = String(psercentage)
+    }
+}
+
 class CoinPriceChangeView: BaseView {
     let priceLabel = UILabel()
     let persantageLable = UILabel()

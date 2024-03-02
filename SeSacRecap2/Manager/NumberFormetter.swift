@@ -20,6 +20,12 @@ class NumberFormetter {
         guard let results else {return ""}
         return "₩"+results
     }
+    // MARK: 현지 가격에 맞춤화
+    func rounded(_ price: String, type: vsCurrency) -> String{
+        let string = price.replacingOccurrences(of: type.priceCase, with: "")
+        guard let doubel = Double(string) else {return ""}
+        return String(format: "%+.2f%%", doubel)
+    }
     
     func presentation(persentage: Double) -> String {
         let formattedString = String(format: "%+.2f%%",  persentage)
