@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomHeaderView: BaseView{
+final class CustomHeaderView: BaseView{
     let titleLabel = UILabel()
     
     override func configureHierarchy() {

@@ -7,32 +7,7 @@
 
 import UIKit
 
-enum TabarSection: CaseIterable{
-    case tranding
-    case search
-    case favorite
-    
-    var selected: String {
-        switch self {
-        case .tranding:
-            "tab_trend"
-        case .search:
-            "tab_search"
-        case .favorite:
-            "tab_portfolio"
-        }
-    }
-    var normal: String {
-        switch self {
-        case .tranding:
-            "tab_trend_inactive"
-        case .search:
-            "tab_search_inactive"
-        case .favorite:
-            "tab_portfolio_inactive"
-        }
-    }
-}
+
 
 
 // MARK: 죄송합니다. 모든 뷰컨트롤러 에서 MVVM을 하려고 했으나
@@ -41,22 +16,22 @@ enum TabarSection: CaseIterable{
 // 어떻게든 여기서도 각 뷰컨의 뷰 모델에 접근하여서 해결해 보는 방향으로 생각했습니다.
 // 원래는 이것을 이용해서가 아니라 공통적인 뷰모델을 정의해서 그 뷰모델에서 변화를 감지 하면 전체적으로 알릴수 있으니 그렇게 하려고 했는데... 진짜 열심히 해봤는데..
 // 생각되로 되질 않아서 너무 속상하고 .... 죄송합니다.
-class ChartSearchTabViewController: UITabBarController {
+final class ChartSearchTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
+        
         let trentViewController =  NewTrendViewController()
         let searchViewController = SearchViewController()
         let FavoriteViewController = FavoriteCoinViewController()
         
+        let nvc1 = UINavigationController(rootViewController: trentViewController)
+        let nvc2 = UINavigationController(rootViewController: searchViewController)
+        let nvc3 = UINavigationController(rootViewController: FavoriteViewController)
+        let temp = UIViewController()
         
-        let nvc3 = UINavigationController(rootViewController: trentViewController)
-        
-        let nvc = UINavigationController(rootViewController: searchViewController)
-        let nvc2 = UINavigationController(rootViewController: FavoriteViewController)
-        
-        self.setViewControllers([nvc3,nvc,nvc2], animated: true)
+        self.setViewControllers([nvc1,nvc2,nvc3,temp], animated: true)
         
         if let items = tabBar.items {
             items.enumerated().forEach { [weak self] index, item in
@@ -65,16 +40,27 @@ class ChartSearchTabViewController: UITabBarController {
                 item.image = UIImage(named: TabarSection.allCases[index].normal)
             }
         }
-        
-
-        
+        tabBar.items?.last?.isEnabled = false
     }
 }
+
 
 extension ChartSearchTabViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         print(tabBarController, viewController)
         
+    }
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        //https://ios-daniel-yang.tistory.com/108
+        // 현재 뷰컨의 뷰
+        guard let fromView = tabBarController.selectedViewController?.view,
+              let toView = viewController.view else {return false}
+            // 선택될 뷰컨의 뷰
+        if fromView == toView {
+            return false
+        }
+        UIView.transition(from: fromView, to: toView, duration: 0.3, options: .transitionCrossDissolve)
+        return true
     }
 }
 

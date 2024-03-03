@@ -16,7 +16,7 @@ import SnapKit
 // 프로토콜 채택
 // weak var customDelegate: TableInCollectionFavoriteTableDelegate?
 
-class TableInCollectionFavoriteTableCell: BaseTableViewCell {
+final class TableInCollectionFavoriteTableCell: BaseTableViewCell {
     // MARK: 바인딩으로 하려했으나 이친구가 먼저 로드됨
     lazy var collecionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
     

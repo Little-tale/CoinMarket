@@ -16,27 +16,8 @@ import Charts
 // MARK: 드디어 전뷰랑 연동이 되었다 ㅠㅠㅠㅠ
 // MRAK: 전역적으로 연동할수 있는 법을 모르겠다....
 
-enum CharSection:Int, CaseIterable {
-    case high
-    case low
-    var title: (title:String, supers: String ) {
-        switch self{
-        case .high:
-            return ("고가","신고점")
-        case .low:
-            return ("저가","신저점")
-        }
-    }
-    var colorBool: Bool {
-        switch self{
-        case .high:
-            return true
-        case .low:
-            return false
-        }
-    }
-}
 
+ 
 struct chartSectionData {
     var normal: String
     var supers: String
@@ -53,7 +34,7 @@ struct chartSectionData {
 // 2. 데이터 뿌려주는 로직 고미
 // 3. charView 고민
 
-class CoinChartViewController: BaseViewController {
+final class CoinChartViewController: BaseViewController {
     let mainCoinView = CoinPriceView()
     let highLowCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
     let lineChartView = LineChartView()

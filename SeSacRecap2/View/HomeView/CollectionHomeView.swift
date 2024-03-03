@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CollectionHomeView: BaseView {
+final class CollectionHomeView: BaseView {
     lazy var collectionCoinView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
     
     override func configureHierarchy() {

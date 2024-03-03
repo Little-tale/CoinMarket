@@ -8,27 +8,10 @@
 import Foundation
 import RealmSwift
 
+
 extension Error {
     var RepositoryError: RepositoryError? {
         self as? RepositoryError
-    }
-}
-
-enum RepositoryError: Error{
-    case canAddYourObject
-    case deleteFail
-    
-    
-    var title: String{
-        return "데이터 베이스 오류!"
-    }
-    var message: String {
-        switch self {
-        case .canAddYourObject:
-            "현재 추가하실수 없어요!"
-        case .deleteFail:
-            "삭제실패 하였습니다."
-        }
     }
 }
 

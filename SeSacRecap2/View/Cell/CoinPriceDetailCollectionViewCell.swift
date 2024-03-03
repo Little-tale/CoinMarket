@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CoinPriceDetailCollectionViewCell: BaseCollectionViewCell {
+final class CoinPriceDetailCollectionViewCell: BaseCollectionViewCell {
     let priceTitle = UILabel()
     let price = UILabel()
     let superPriceTitle = UILabel()

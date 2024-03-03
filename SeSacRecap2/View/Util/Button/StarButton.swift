@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StarButton: UIButton {
+final class StarButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setting()

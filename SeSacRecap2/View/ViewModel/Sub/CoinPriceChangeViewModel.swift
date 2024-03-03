@@ -11,7 +11,7 @@ enum Alignment {
     case left
     case right
 }
-class CoinPriceChangeViewModel {
+final class CoinPriceChangeViewModel {
     var alimentCase: Observable<Alignment> = Observable(.left)
     
     var inputCuntry: Observable<vsCurrency> = Observable(.usa)

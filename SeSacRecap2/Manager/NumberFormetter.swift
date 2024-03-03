@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NumberFormetter {
+final class NumberFormetter {
     private init() {}
     static let shared = NumberFormetter()
     private let formetter = NumberFormatter()

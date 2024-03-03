@@ -24,7 +24,7 @@ enum FileInfoManagerError: Error {
     }
 }
 
-class FileInfoManager {
+final class FileInfoManager {
     private init() {}
     static let shared = FileInfoManager()
     

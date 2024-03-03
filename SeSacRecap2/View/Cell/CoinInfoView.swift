@@ -21,7 +21,7 @@ struct CoinInfoModel{
 }
 
 
-class CoinInfoView: BaseView {
+final class CoinInfoView: BaseView {
     let imageView = UIImageView()
     let coinName = UILabel()
     let symBol = UILabel()

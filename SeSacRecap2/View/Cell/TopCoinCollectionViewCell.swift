@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TopCoinCollectionViewCell: BaseCollectionViewCell{
+final class TopCoinCollectionViewCell: BaseCollectionViewCell{
     let rankLabel = UILabel()
     let coinInfoView = CoinInfoView()
     let coinPriceView = CoinPriceChangeView()

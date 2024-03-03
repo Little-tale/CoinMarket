@@ -45,7 +45,6 @@
 		7B5C3E802B8E082F005FD3BC /* CoinDetailButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E7F2B8E082F005FD3BC /* CoinDetailButtonCell.swift */; };
 		7B5C3E822B8E0880005FD3BC /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E812B8E0880005FD3BC /* BaseTableViewCell.swift */; };
 		7B5C3E842B8E08AC005FD3BC /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E832B8E08AC005FD3BC /* Extention.swift */; };
-		7B5C3E862B8E1AE7005FD3BC /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E852B8E1AE7005FD3BC /* AlertManager.swift */; };
 		7B5C3E892B8E2548005FD3BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7B5C3E882B8E2548005FD3BC /* Kingfisher */; };
 		7B5C3E8B2B8E2775005FD3BC /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E8A2B8E2775005FD3BC /* Section.swift */; };
 		7B5C3E8E2B8E2946005FD3BC /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C3E8D2B8E2946005FD3BC /* StarButton.swift */; };
@@ -111,7 +110,6 @@
 		7B5C3E7F2B8E082F005FD3BC /* CoinDetailButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailButtonCell.swift; sourceTree = "<group>"; };
 		7B5C3E812B8E0880005FD3BC /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7B5C3E832B8E08AC005FD3BC /* Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
-		7B5C3E852B8E1AE7005FD3BC /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		7B5C3E8A2B8E2775005FD3BC /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		7B5C3E8D2B8E2946005FD3BC /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		7B5C3E8F2B8E3429005FD3BC /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				7B5C3E6E2B8DB729005FD3BC /* APIReqeustManager.swift */,
-				7B5C3E852B8E1AE7005FD3BC /* AlertManager.swift */,
 				7B5C3E8F2B8E3429005FD3BC /* RealmRepository.swift */,
 				7B5C3EB32B8EE565005FD3BC /* NumberFormetter.swift */,
 				7B5C3EB52B8EF5EC005FD3BC /* FileManager.swift */,
@@ -530,7 +527,6 @@
 				7B8FCFF12B92D88C00F3CBA9 /* TopCoinCollectionViewCell.swift in Sources */,
 				7B5C3EC32B8F0A08005FD3BC /* BaseCollectionViewCell.swift in Sources */,
 				7B5C3E8B2B8E2775005FD3BC /* Section.swift in Sources */,
-				7B5C3E862B8E1AE7005FD3BC /* AlertManager.swift in Sources */,
 				7B5C3E802B8E082F005FD3BC /* CoinDetailButtonCell.swift in Sources */,
 				7B5C3E8E2B8E2946005FD3BC /* StarButton.swift in Sources */,
 				7B35E84B2B9083EA004E4745 /* FavoriteCoinViewController.swift in Sources */,
@@ -648,7 +644,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -705,7 +701,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -727,8 +723,8 @@
 				INFOPLIST_FILE = SeSacRecap2/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -759,8 +755,8 @@
 				INFOPLIST_FILE = SeSacRecap2/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

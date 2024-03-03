@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchViewModel {
+final class SearchViewModel {
     // MARK: INPUT
     let searchInPut: Observable<String?> = Observable(nil)
     

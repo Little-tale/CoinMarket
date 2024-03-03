@@ -10,7 +10,7 @@
 // MARK: 어떤 키워드들을 공부해야 이런 UI들을 유연하게 대처해볼 수 있을까요..!
 import Foundation
 
-class CoinChartViewModel {
+final class CoinChartViewModel {
     // INPUT
     var coinInfoInput: Observable<Coin?> = Observable(nil)
     var cellTextColorInput: Observable<IndexPath?> = Observable(nil)

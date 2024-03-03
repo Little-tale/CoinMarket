@@ -11,7 +11,7 @@ import Foundation
 // didSet이 먹히지 않는것을 알아버렸습니다. 내부 내용이 바껴도 마치 클래스마냥
 // 걸리지 않더군요 컬렉션 타입이 참 저를 괴롭힙니다..... 혼내주세요...
 
-class TrendingViewModel {
+final class TrendingViewModel {
     // MARK: 섹션
     // var inputSection: Observable<[TrendingViewSection: Bool]?> = Observable(nil)
     

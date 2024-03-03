@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CoinPriceViewModel {
+final class CoinPriceViewModel {
     // input
     var coinInput: Observable<CoinPriceModel?> = Observable(nil)
     // output

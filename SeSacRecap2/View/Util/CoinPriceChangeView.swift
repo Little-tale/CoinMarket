@@ -31,7 +31,7 @@ struct CoinPriceModelString{
     }
 }
 
-class CoinPriceChangeView: BaseView {
+final class CoinPriceChangeView: BaseView {
     let priceLabel = UILabel()
     let persantageLable = UILabel()
     

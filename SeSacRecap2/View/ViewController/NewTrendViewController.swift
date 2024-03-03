@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewTrendViewController: HomeBaseViewController<TableHomeView> {
+final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
     /// 트랜딩 뷰모델
     let trendingViewModel = TrendingViewModel()
     /// 즐겨찾기 뷰모델

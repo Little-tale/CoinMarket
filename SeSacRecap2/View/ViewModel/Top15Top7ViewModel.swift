@@ -12,7 +12,7 @@ enum coinTypes: String{
     case coinItem = "coinItem"
 }
 
-class Top15Top7ViewModel {
+final class Top15Top7ViewModel {
     
     var inputIndexPath: Observable<(num:Int, type:coinTypes)?> = Observable(nil)
     var makeCoinInput: Observable<(nft: Nft?, items: CoinItem?)?> = Observable(nil)

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CoinStarCollectionViewCell: BaseCollectionViewCell {
+final class CoinStarCollectionViewCell: BaseCollectionViewCell {
     
     let coinInfoView = CoinInfoView()
    let coinPriceChangeView = CoinPriceChangeView()

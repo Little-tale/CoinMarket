@@ -8,7 +8,7 @@
 import Foundation
 
 
-class TableViewCollectionCellStylerViewModel {
+final class TableViewCollectionCellStylerViewModel {
     let inputSection: Observable<TrendingViewSection?> =  Observable(nil)
     
     let inputFavoriteData: Observable<[CoinMarket]?> = Observable(nil)

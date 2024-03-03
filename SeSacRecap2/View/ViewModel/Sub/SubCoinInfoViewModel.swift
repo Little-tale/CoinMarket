@@ -7,6 +7,6 @@
 
 import Foundation
 
-class SubCoinInfoViewModel {
+final class SubCoinInfoViewModel {
     var inputModel: Observable<CoinInfoModel?> = Observable(nil)
 }

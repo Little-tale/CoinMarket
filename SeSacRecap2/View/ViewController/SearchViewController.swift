@@ -18,7 +18,7 @@ import Kingfisher
 // 서치 컨트롤러를 쓰시려면 네비게이션을 임베디드 해야한다. ok
 //
 
-class SearchViewController: HomeBaseViewController<TableHomeView> {
+final class SearchViewController: HomeBaseViewController<TableHomeView> {
     
     let viewModel = SearchViewModel()
     
@@ -149,6 +149,10 @@ extension SearchViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         // searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        //MARK: 뷰디드 시점보다 이친구 세팅이 참 빠르다 그래서 늦춰서 잡아줌
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            searchController.searchBar.becomeFirstResponder()
+        }
         self.navigationItem.searchController = searchController
     }
 }

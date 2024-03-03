@@ -30,7 +30,7 @@ import Foundation
  */
  */
 
-class TopCoinViewModel {
+final class TopCoinViewModel {
     var vs_currency : Observable<vsCurrency> = Observable(.usa)
     var inputNFT: Observable<Nft?> = Observable(nil)
     var inputCoin: Observable<CoinItem?> = Observable(nil)

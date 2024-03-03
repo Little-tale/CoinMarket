@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TableHomeView: BaseView {
+final class TableHomeView: BaseView {
     let customTableView = UITableView(frame: .zero, style: .grouped)
     
     override func configureHierarchy() {

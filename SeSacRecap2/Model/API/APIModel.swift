@@ -19,7 +19,6 @@ protocol guide {
 
 import Foundation
 
-
 // MARK: 대표 모델 코인 검색
 struct searchCoin: Decodable {
     let coins: [Coin] // 코인 데이터들

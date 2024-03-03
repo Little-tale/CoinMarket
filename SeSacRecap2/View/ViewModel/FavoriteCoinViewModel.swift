@@ -9,7 +9,7 @@ import Foundation
 
 
 // 혹시 시간이 되신다면 StarViewModel의 글을 읽어주셨으면 합니다...
-class FavoriteCoinViewModel {
+final class FavoriteCoinViewModel {
     // MARK: input
     var indexPathInput: Observable<Int?> = Observable(nil)
     var nextIndexPathInput: Observable<Int?> = Observable(nil)

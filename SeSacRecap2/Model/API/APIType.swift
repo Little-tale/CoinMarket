@@ -17,45 +17,6 @@ import Foundation
 // https://api.coingecko.com/api/v3/
 // coins/markets?vs_currency=krw&ids=bitcoin,wrapped-bitcoin,01coin,1000shib,1hive-water,agoric,agrello,aldrin
 
-enum vsCurrency {
-    case kor
-    case jap
-    case usa
-    
-    static var base: String {return "vs_currency="}
-    
-    var query: String {
-        switch self {
-        case .kor:
-            return vsCurrency.base + "krw"
-        case .jap:
-            return vsCurrency.base + "jpy"
-        case .usa:
-            return vsCurrency.base + "usd"
-        }
-    }
-    var priceCase: String {
-        switch self{
-        case .kor:
-            return "₩"
-        case .jap:
-            return "¥"
-        case .usa:
-            return "$"
-        }
-    }
-    var moneyType: String {
-        switch self {
-        case .kor:
-            "krw"
-        case .jap:
-            "jpy"
-        case .usa:
-            "usd"
-        }
-    }
-}
-
 
 enum APIType {
     case search(searchText: String)

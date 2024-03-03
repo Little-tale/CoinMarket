@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CircleImageView: UIImageView{
+final class CircleImageView: UIImageView{
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = self.frame.width / 2
@@ -19,7 +19,7 @@ class CircleImageView: UIImageView{
 }
 
 
-class CoinDetailButtonCell: BaseTableViewCell {
+final class CoinDetailButtonCell: BaseTableViewCell {
     let detailImage = UIImageView()
     
     let nameLabel: UILabel = {
