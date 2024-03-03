@@ -42,6 +42,9 @@ final class CoinChartViewController: BaseViewController {
     
     let viewModel = CoinChartViewModel()
     
+    // 죄송합니다.. 이건 처음하는거라 여기에서 하겠습니다 ㅠ
+    var disPatchQueItem: DispatchWorkItem?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +91,11 @@ final class CoinChartViewController: BaseViewController {
         super.viewWillDisappear(animated)
         viewModel.inputViewdidLoadTrigger.unBind()
         viewModel.errorOutPut.unBind()
+        disPatchQueItem?.cancel()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.inputViewdidLoadTrigger.value = ()
     }
 }
 
@@ -161,19 +169,26 @@ extension CoinChartViewController {
         viewModel.checkedButtonStateInput.value = ()
     }
 }
-
+// MARK: 하....이제보니 이 알렛 로직도 뷰모델에 넣을수 있었겠다...
 extension CoinChartViewController {
     func subscribe(){
         viewModel.mainCoinInfoOutput.bind {[weak self] coinModel in
             guard let self else {return}
             guard let coinModel else {return}
             mainCoinView.viewModel.coinInput.value = coinModel
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
                 viewModel.modernization.value = ()
                 showAlert(text: "업데이트!", message: "최신화!")
             }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30, execute: disPatchQueItem)
+            }
+            
         }
         viewModel.collectionDataOutput.bind {[weak self] _ in
             guard let self else {return}
@@ -210,11 +225,17 @@ extension CoinChartViewController {
         viewModel.errorOutPut.bind {[weak self] message in
             guard let message else {return}
             guard let self else {return}
-           showAlert(text: message, message: "")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+            
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(text: message, message: "")
                 viewModel.modernization.value = ()
+            }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30, execute: disPatchQueItem)
             }
         }
     }

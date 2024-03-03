@@ -15,6 +15,7 @@ import Kingfisher
 
 final class FavoriteCoinViewController: HomeBaseViewController<CollectionHomeView> {
     let viewModel = FavoriteCoinViewModel()
+    var disPatchQueItem: DispatchWorkItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,7 @@ final class FavoriteCoinViewController: HomeBaseViewController<CollectionHomeVie
         viewModel.viewWillTrigger.unBind()
         viewModel.maximViewWillTrigger.unBind()
         viewModel.errorOutput.unBind()
+        disPatchQueItem?.cancel()
     }
 }
 
@@ -82,23 +84,36 @@ extension FavoriteCoinViewController {
         viewModel.errorOutput.bind { [weak self] error in
             guard let error else {return}
             guard let self else {return}
-            showAlert(error: error)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(error: error)
                 viewModel.viewWillTrigger.value = ()
+            }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40 , execute: disPatchQueItem)
             }
         }
         viewModel.succesOutPut.bind {[weak self] sucsess in
             guard let self else {return}
             guard let sucsess else {return}
             homeView.collectionCoinView.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
-                viewModel.viewWillTrigger.value = ()
                 showAlert(text: "업데이트!", message: "최신화!")
+                viewModel.viewWillTrigger.value = ()
             }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10 , execute: disPatchQueItem)
+            }
+            
         }
         viewModel.nextCoinOutPut.bind { [weak self] coinModel in
             guard let self else {return}

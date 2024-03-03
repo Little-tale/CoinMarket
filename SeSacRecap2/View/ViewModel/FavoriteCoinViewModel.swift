@@ -31,7 +31,8 @@ final class FavoriteCoinViewModel {
     let testOiu :Observable<Void?> = Observable(nil)
     
     // ALL Listen
-    var allLiten = ObservableGroup()
+    var allLiten = ObservableGroup() // 죄송합니다.. 노력했는데;..
+    
     
     init(){
         allLiten.add(indexPathInput)

@@ -21,6 +21,7 @@ import Kingfisher
 final class SearchViewController: HomeBaseViewController<TableHomeView> {
     
     let viewModel = SearchViewModel()
+    var disPatchQueItem: DispatchWorkItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +36,10 @@ final class SearchViewController: HomeBaseViewController<TableHomeView> {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.triggerViewController.value = nil
-        viewModel.tableErrorOutput.value = nil
-        viewModel.errorOutPut.value = nil
+        viewModel.triggerViewController.unBind()
+        viewModel.tableErrorOutput.unBind()
+        viewModel.errorOutPut.unBind()
+        disPatchQueItem?.cancel()
     }
 }
 // dataSource, delegate etc Setting
@@ -60,27 +62,45 @@ extension SearchViewController {
             guard let error else {return}
             guard let self else {return}
             showAlert(error: error)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+            disPatchQueItem?.cancel()
+
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(error: error)
                 viewModel.triggerViewController.value = ()
             }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40, execute: disPatchQueItem)
+            }
+            
         }
         viewModel.tableErrorOutput.bind { [weak self] error in
             guard let error else {return}
             guard let self else {return}
-            showAlert(error: error)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+            disPatchQueItem?.cancel()
+           
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(error: error)
                 viewModel.triggerViewController.value = ()
             }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40 , execute: disPatchQueItem)
+            }
+
         }
         viewModel.saveSuccesOutput.bind { [weak self] success in
             guard let success else {return}
             guard let self else {return}
-            showAlert(text: "즐겨찾기", message: success)
-            
+            disPatchQueItem?.cancel()
+        
+            DispatchQueue.main.async {
+                [weak self] in
+                guard let self else {return}
+                showAlert(text: "즐겨찾기", message: success)
+            }
             //homeView.tableView.reloadData()
         }
         // MARK: 이런식으로 하면 무적 권 로드 두번이다.

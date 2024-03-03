@@ -16,6 +16,8 @@ import UIKit
 // 어떻게든 여기서도 각 뷰컨의 뷰 모델에 접근하여서 해결해 보는 방향으로 생각했습니다.
 // 원래는 이것을 이용해서가 아니라 공통적인 뷰모델을 정의해서 그 뷰모델에서 변화를 감지 하면 전체적으로 알릴수 있으니 그렇게 하려고 했는데... 진짜 열심히 해봤는데..
 // 생각되로 되질 않아서 너무 속상하고 .... 죄송합니다.
+
+// https://stackoverflow.com/questions/44633729/stop-a-dispatchqueue-that-is-running-on-the-main-thread
 final class ChartSearchTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()

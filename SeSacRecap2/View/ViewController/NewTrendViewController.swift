@@ -15,6 +15,8 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
     /// Top 15, nft 뷰모델
     let topViewModel = Top15Top7ViewModel()
     
+    var disPatchQueItem: DispatchWorkItem?
+    
     let repo = RealmRepository()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +45,10 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
         super.viewWillDisappear(animated)
         topViewModel.viewWillTrigger.unBind()
         favoriteViewModel.maximViewWillTrigger.unBind()
+        favoriteViewModel.viewWillTrigger.unBind()
         topViewModel.outPutAPIError.unBind()
         favoriteViewModel.errorOutput.unBind()
+        disPatchQueItem?.cancel()
     }
 }
 
@@ -76,21 +80,33 @@ extension NewTrendViewController {
         favoriteViewModel.errorOutput.bind { [weak self] error in
             guard let self else {return}
             guard let error  else {return}
-            showAlert(error: error)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+            
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(error: error)
                 favoriteViewModel.viewWillTrigger.value = ()
+            }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20 , execute: disPatchQueItem)
             }
         }
         topViewModel.outPutAPIError.bind {  [weak self] error in
             guard let self else {return}
             guard let error  else {return}
-            showAlert(error: error)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+          
+            disPatchQueItem?.cancel()
+            
+            disPatchQueItem = DispatchWorkItem {
                 [weak self] in
                 guard let self else {return}
+                showAlert(error: error)
                 favoriteViewModel.viewWillTrigger.value = ()
+            }
+            if let disPatchQueItem{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20 , execute: disPatchQueItem)
             }
         }
     }
