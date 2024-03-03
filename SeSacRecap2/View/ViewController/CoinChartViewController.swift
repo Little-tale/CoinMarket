@@ -86,7 +86,8 @@ final class CoinChartViewController: BaseViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.allListen.unBindAll()
+        viewModel.inputViewdidLoadTrigger.unBind()
+        viewModel.errorOutPut.unBind()
     }
 }
 

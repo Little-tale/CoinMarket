@@ -35,7 +35,9 @@ final class SearchViewController: HomeBaseViewController<TableHomeView> {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.allListen.unBindAll()
+        viewModel.triggerViewController.value = nil
+        viewModel.tableErrorOutput.value = nil
+        viewModel.errorOutPut.value = nil
     }
 }
 // dataSource, delegate etc Setting

@@ -41,9 +41,10 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        trendingViewModel.allLiten.unBindAll()
-        favoriteViewModel.allLiten.unBindAll()
-        topViewModel.allLiten.unBindAll()
+        topViewModel.viewWillTrigger.unBind()
+        favoriteViewModel.maximViewWillTrigger.unBind()
+        topViewModel.outPutAPIError.unBind()
+        favoriteViewModel.errorOutput.unBind()
     }
 }
 

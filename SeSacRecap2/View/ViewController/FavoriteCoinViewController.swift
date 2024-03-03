@@ -42,13 +42,10 @@ final class FavoriteCoinViewController: HomeBaseViewController<CollectionHomeVie
 //        viewModel.maximViewWillTrigger.value = nil
 //        viewModel.errorOutput.value = nil
         // 이렇게 해보았지만 역시.... 안됨
-        // 이건 말이 될것 같은데
-        // 
-//        viewModel.viewWillTrigger.unBind()
-//        viewModel.maximViewWillTrigger.unBind()
-//        viewModel.errorOutput.unBind()
-        
-        viewModel.allLiten.unBindAll()
+        // 이건 말이 될것 같은ㄷ
+        viewModel.viewWillTrigger.unBind()
+        viewModel.maximViewWillTrigger.unBind()
+        viewModel.errorOutput.unBind()
     }
 }
 
