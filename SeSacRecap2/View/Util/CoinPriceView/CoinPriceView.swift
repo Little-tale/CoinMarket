@@ -69,7 +69,7 @@ class CoinPriceView: BaseView {
     // MARK 또다른 뷰모델
     override func subscribe() {
         viewModel.coinImageOutput.bind {[weak self] url in
-            print("$$$$URL",url)
+            // print("$$$$URL",url)
             guard let url else {return}
             guard let self else {return}
             

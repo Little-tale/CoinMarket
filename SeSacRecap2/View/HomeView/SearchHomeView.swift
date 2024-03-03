@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class TableHomeView: BaseView {
-    let customTableView = UITableView(frame: .zero)
+    let customTableView = UITableView(frame: .zero, style: .grouped)
     
     override func configureHierarchy() {
         self.addSubview(customTableView)
@@ -19,7 +19,6 @@ class TableHomeView: BaseView {
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
-    
     override func register() {
         super.register()
         customTableView.register(CoinDetailButtonCell.self, forCellReuseIdentifier: CoinDetailButtonCell.reusableIdentifier)
@@ -27,5 +26,10 @@ class TableHomeView: BaseView {
         customTableView.register(TableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: TableInCollectionFavoriteTableCell.reusableIdentifier)
         
         customTableView.register(NewTableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: NewTableInCollectionFavoriteTableCell.reusableIdentifier)
+    }
+    override func designView() {
+        customTableView.backgroundColor = .white
+        // MARK: 테이블뷰 구분선 제거
+        customTableView.separatorStyle = .none
     }
 }

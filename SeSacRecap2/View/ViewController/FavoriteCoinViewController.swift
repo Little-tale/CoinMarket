@@ -32,7 +32,7 @@ class FavoriteCoinViewController: HomeBaseViewController<CollectionHomeView> {
 
 extension FavoriteCoinViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("@@@@",viewModel.succesOutPut.value?.count)
+        
         return viewModel.succesOutPut.value?.count ?? 0
     }
     
@@ -90,6 +90,8 @@ extension FavoriteCoinViewController {
     func settingNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = NavigationTitleSection.Favorite.title
+        let rightBarButton = UserButton(image: UIImage(named: "tab_user_inactive"), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = rightBarButton
     }
 }
 

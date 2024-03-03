@@ -150,21 +150,16 @@ extension SearchViewController {
         // searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         self.navigationItem.searchController = searchController
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = NavigationTitleSection.Search.title
-        self.navigationItem.hidesSearchBarWhenScrolling = true
     }
 }
 // MARK: 네비게이션 세팅
 extension SearchViewController {
     func settingNavigation(){
-        
-        let rightImageView = CircleImageView(frame: .zero)
-        rightImageView.image = UIImage(named: "tab_user_inactive")
-        
-        let rightBarButton = UIBarButtonItem(customView: rightImageView)
-        
+        let rightBarButton = UserButton(image: UIImage(named: "tab_user_inactive"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = NavigationTitleSection.Search.title
+        self.navigationItem.hidesSearchBarWhenScrolling = true
     }
 }
 

@@ -38,7 +38,7 @@ final class RealmRepository {
     let coinRealmTable = CoinSearchTable.self
     
     var canIFavorite: Bool{
-        print(realm.configuration.fileURL)
+        print(realm.configuration.fileURL ?? "")
         let count = realm.objects(coinRealmTable.self).where { $0.buttonBool == true}.count
         
         if 9 < count{
@@ -63,7 +63,7 @@ final class RealmRepository {
     
     // MARK: 새로짠 코인 테이블
     func newOrDeleteFavoriteCoin(coin: Coin) -> Result<String, RepositoryError>{
-        print(realm.configuration.fileURL)
+        print(realm.configuration.fileURL ?? "" )
         var message = ""
         do {
             try realm.write {
@@ -83,7 +83,7 @@ final class RealmRepository {
     }
     
     func newOrDeleteFavoriteCoin(table: CoinSearchTable) -> Result<String, RepositoryError>{
-        print(realm.configuration.fileURL)
+        print(realm.configuration.fileURL ?? "" )
         var message = ""
         do {
             try realm.write {

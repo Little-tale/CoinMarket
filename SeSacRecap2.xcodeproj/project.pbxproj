@@ -73,6 +73,7 @@
 		7BAB73092B9201D3003028C0 /* CoinmarketDibideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAB73082B9201D3003028C0 /* CoinmarketDibideViewModel.swift */; };
 		7BE7E3092B943CA0000E57A0 /* DateAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E3082B943CA0000E57A0 /* DateAssistance.swift */; };
 		7BE7E30B2B945C91000E57A0 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E30A2B945C91000E57A0 /* CustomMarkerView.swift */; };
+		7BE7E3102B947159000E57A0 /* UserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E30F2B947159000E57A0 /* UserButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		7BAB73082B9201D3003028C0 /* CoinmarketDibideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinmarketDibideViewModel.swift; sourceTree = "<group>"; };
 		7BE7E3082B943CA0000E57A0 /* DateAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAssistance.swift; sourceTree = "<group>"; };
 		7BE7E30A2B945C91000E57A0 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
+		7BE7E30F2B947159000E57A0 /* UserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,10 +362,10 @@
 		7B5C3E8C2B8E293A005FD3BC /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				7BE7E30E2B947146000E57A0 /* Button */,
 				7B35E81B2B8F6B41004E4745 /* Color */,
 				7B35E8182B8F6AFF004E4745 /* Chart */,
 				7B5C3EBB2B8EFEAA005FD3BC /* CoinPriceView */,
-				7B5C3E8D2B8E2946005FD3BC /* StarButton.swift */,
 				7B35E8502B908859004E4745 /* CoinInfoView.swift */,
 				7B35E8542B908E45004E4745 /* CoinPriceChangeView.swift */,
 				7B8FCFEC2B92BF1100F3CBA9 /* CustomHeaderView.swift */,
@@ -422,6 +424,15 @@
 				7BE7E30A2B945C91000E57A0 /* CustomMarkerView.swift */,
 			);
 			path = Trash;
+			sourceTree = "<group>";
+		};
+		7BE7E30E2B947146000E57A0 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				7B5C3E8D2B8E2946005FD3BC /* StarButton.swift */,
+				7BE7E30F2B947159000E57A0 /* UserButton.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,6 +547,7 @@
 				7BAB73092B9201D3003028C0 /* CoinmarketDibideViewModel.swift in Sources */,
 				7B5C3E732B8DB7BB005FD3BC /* APIType.swift in Sources */,
 				7B5C3EC52B8F14A5005FD3BC /* CoinChartViewModel.swift in Sources */,
+				7BE7E3102B947159000E57A0 /* UserButton.swift in Sources */,
 				7B35E85B2B90A9B2004E4745 /* SubCoinInfoViewModel.swift in Sources */,
 				7B5C3EBF2B8F08A8005FD3BC /* CoinPriveDetailView.swift in Sources */,
 				7B5C3EB42B8EE565005FD3BC /* NumberFormetter.swift in Sources */,

@@ -22,6 +22,6 @@ class CustomHeaderView: BaseView{
     }
     override func designView() {
         titleLabel.textColor = .black
-        titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
+        titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
     }
 }

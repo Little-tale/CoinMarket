@@ -112,8 +112,8 @@ extension NewTrendViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let cellType = trendingViewModel.outputSection.value[section]
         let headerView = CustomHeaderView()
-        
         headerView.titleLabel.text = cellType.title
+        
         return headerView
     }
 }
@@ -203,20 +203,20 @@ extension NewTrendViewController: TableInCollectionFavoriteTableDelegate {
 
         }
     }
-
 }
 // MARK: 네비게이션 세팅
 extension NewTrendViewController {
     func settingNavigation(){
-        let rightImageView = CircleImageView(frame: .zero)
-        rightImageView.image = UIImage(named: "tab_user_inactive")
-        
-        let rightBarButton = UIBarButtonItem(customView: rightImageView)
+        let rightBarButton = UserButton(image: UIImage(named: "tab_user_inactive"), style: .plain, target: self, action: nil)
+    
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = NavigationTitleSection.Trending.title
         navigationItem.rightBarButtonItem = rightBarButton
     }
 }
+
+
+//        let rightBarButton = UIBarButtonItem(customView: rightImageView)
 
 //            guard let datas =  topViewModel.outputNfts.value else {return}
 //            let data = datas[indexPath.item]

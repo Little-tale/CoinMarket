@@ -49,7 +49,7 @@ class TableInCollectionFavoriteTableCell: BaseTableViewCell {
 extension TableInCollectionFavoriteTableCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return customDelegate?.numberOfItemsInSection(section: section) ?? 0
-        guard let caseof = tableviewModel.inputSection.value else {
+        guard tableviewModel.inputSection.value != nil else {
             return 0
         }
        // MARK: 즐겨찾기일때
