@@ -76,7 +76,8 @@ extension FavoriteCoinViewController {
             let vc = CoinChartViewController()
             vc.viewModel.coinInfoInput.value = coinModel
             vc.viewModel.inputViewdidLoadTrigger.bind {[weak self] _ in
-                guard let self else {return}
+                guard self != nil else {return}
+                // **&&**
                 //viewModel.viewWillTrigger.value = ()
                 //homeView.collectionCoinView.reloadData()
             }
@@ -88,7 +89,7 @@ extension FavoriteCoinViewController {
 extension FavoriteCoinViewController {
     func settingNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Favorite Coin"
+        navigationItem.title = NavigationTitleSection.Favorite.title
     }
 }
 

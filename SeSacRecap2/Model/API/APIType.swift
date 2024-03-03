@@ -44,6 +44,16 @@ enum vsCurrency {
             return "$"
         }
     }
+    var moneyType: String {
+        switch self {
+        case .kor:
+            "krw"
+        case .jap:
+            "jpy"
+        case .usa:
+            "usd"
+        }
+    }
 }
 
 

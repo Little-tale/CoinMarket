@@ -22,8 +22,10 @@ class NumberFormetter {
     }
     // MARK: 현지 가격에 맞춤화
     func rounded(_ price: String, type: vsCurrency) -> String{
+        print("@@!!@@price", price)
         let string = price.replacingOccurrences(of: type.priceCase, with: "")
         guard let doubel = Double(string) else {return ""}
+        print("@@!!@@doubel", doubel)
         return String(format: "%+.2f%%", doubel)
     }
     

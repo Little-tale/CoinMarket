@@ -68,8 +68,13 @@ struct ChartDatasetFactory {
         
         dataSet.highlightColor = colorAsset.color // vertical line color
     
+        // MARK: 이방법으로도 그라디언트 가능하다 .
+        // dataSet.fill = LinearGradientFill(gradient: <#T##CGGradient#>, angle: <#T##CGFloat#>)
+        
         addGradient(to: &dataSet, colorAsset: colorAsset)
+        
 
+        
         return dataSet
     }
 }

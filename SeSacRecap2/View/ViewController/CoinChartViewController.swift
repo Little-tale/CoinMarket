@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 import DGCharts
+import Charts
+
+// 들어가기에 앞서... 해당뷰는 homeView를 사용하지 않았습니다.
+// MVVM 을 하면서 VC 가 View 라면 View를 또 달 필요가 있을까에 의문이 들어 이렇게 해보았습니다.
+
 // MARK: 드디어 전뷰랑 연동이 되었다 ㅠㅠㅠㅠ
 // MRAK: 전역적으로 연동할수 있는 법을 모르겠다....
 
@@ -51,9 +56,11 @@ struct chartSectionData {
 class CoinChartViewController: BaseViewController {
     let mainCoinView = CoinPriceView()
     let highLowCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
+    let lineChartView = LineChartView()
+    let dateLabel = UILabel()
+    
     let viewModel = CoinChartViewModel()
     
-    let lineChartView = LineChartView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +75,7 @@ class CoinChartViewController: BaseViewController {
         view.addSubview(mainCoinView)
         view.addSubview(highLowCollectionView)
         view.addSubview(lineChartView)
+        view.addSubview(dateLabel)
     }
     override func configureLayout() {
         mainCoinView.snp.makeConstraints { make in
@@ -83,7 +91,14 @@ class CoinChartViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(highLowCollectionView.snp.bottom)
         }
-        
+        dateLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(lineChartView)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+        }
+    }
+    override func designView() {
+        dateLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        dateLabel.textColor = .darkKey
     }
 
 }
@@ -94,7 +109,6 @@ extension CoinChartViewController {
         highLowCollectionView.dataSource = self
         highLowCollectionView.delegate = self
         highLowCollectionView.register(CoinPriceDetailCollectionViewCell.self, forCellWithReuseIdentifier: CoinPriceDetailCollectionViewCell.reusableIdentifier)
-        
         highLowCollectionView.isScrollEnabled = false
     }
 }
@@ -177,11 +191,15 @@ extension CoinChartViewController {
             }
             // MARK: 데이터 세팅
             let line = LineChartDataSet(entries: datas)
-            let lineData = LineChartData(dataSet: line)
+            // let lineData = LineChartData(dataSet: line)
             let test = ChartDatasetFactory().makeChartDataset(colorAsset: .myPuPle, entries: datas)
             let test2 = LineChartData(dataSet: test)
             
             settingChart(data:test2)
+        }
+        viewModel.dateLabelInfoOutput.bind {[weak self] string in
+            guard let self else {return}
+            dateLabel.text = string
         }
         
         viewModel.firstButtonState.bind { [weak self] result in
@@ -198,7 +216,6 @@ extension CoinChartViewController {
             guard let message else {return}
             guard let self else {return}
            showAlert(text: message, message: "")
-            
         }
     }
 }
@@ -229,17 +246,25 @@ extension CoinChartViewController {
         lineChartView.rightAxis.enabled = false
         lineChartView.drawBordersEnabled = false
         
-        // 1시간 넘게 찾았다 평평한 느낌!
+        // 3시간 넘게 짱돌 굴려서 해본 수학
        let dataAver = data.yMax - data.yMin
         lineChartView.leftAxis.axisMinimum = data.yMin - dataAver
         
         // print(Double((data.count) * 2))
-        // lineChartView.xAxis.axisMaximum = 100 //Double((data.count) * 2)
+        // lineChartView.xAxis.axisMaximum = data.yMin //Double((data.count) * 2)
         print( data.yMax, "@@@", data.yMin, "@@@",data.xMin, "@@@",data.xMax)
         
         lineChartView.minOffset = 0
         lineChartView.data = data
+        //  https://stackoverflow.com/questions/59613110/how-to-create-balloon-marker-xib-view-in-ios-charts
+        // let marker = marker
+        lineChartView.animate(xAxisDuration: 1)
+        lineChartView.animate(yAxisDuration: 1)
     }
+}
+
+extension CoinChartViewController: ChartViewDelegate {
+    
 }
 
 

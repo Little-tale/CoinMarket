@@ -15,7 +15,7 @@ class CoinChartViewModel {
     var coinInfoInput: Observable<Coin?> = Observable(nil)
     var cellTextColorInput: Observable<IndexPath?> = Observable(nil)
     var checkedButtonStateInput: Observable<Void?> = Observable(nil)
-   
+    var coinIdInput: Observable<String?> = Observable(nil)
     
     // MARK: 트리거
     var inputViewdidLoadTrigger: Observable<Void> = Observable(())
@@ -28,6 +28,7 @@ class CoinChartViewModel {
     
     var firstButtonState: Observable<Bool?> = Observable(nil)
     var errorOutPut: Observable<String?> = Observable(nil)
+    var dateLabelInfoOutput: Observable<String> = Observable("")
     
     // Static
     var repository = RealmRepository()
@@ -48,11 +49,17 @@ class CoinChartViewModel {
         }
         checkedButtonStateInput.bind { [weak self] void in
             guard let self else {return}
-            guard let void else {return}
+            guard void != nil else {return}
             checkLikeButton()
             // MARK: 탭바 컨트롤러에게 알립니다.
             ReloadViewModel.shared.inputLoadView.value = ()
             inputViewdidLoadTrigger.value = ()
+        }
+        coinIdInput.bind { [weak self] coinId in
+            guard let self else {return}
+            guard let coinId  else {return}
+            fetch(coinId)
+            checkLikeButton(coinId)
         }
     }
     // MARK: 이부분을 좀더 단단하게 해야 해결할듯
@@ -74,10 +81,25 @@ class CoinChartViewModel {
             // 버튼 상태
             let bool = repository.findFavorite(coin.id)
             firstButtonState.value = bool
+        } else {
+            
         }
     }
     
-    
+    private func fetch(_ coinId: String) {
+        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: [coinId], contry: .kor, spakelType: true)) { results in
+            switch results {
+            case .success(let success):
+                guard let result =  success.first else {return}
+                print(result)
+                self.prefetchCoinMainInfo(coinMarket: result)
+                self.prefetchCoinHighLowInfo(coinMarket: result)
+                self.prefetchChartData(market: result)
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
     
     /// 성공시 [CoinMarket] 반환받음 1차시동 성공 []가 여긴 하나라 그냥 벗겨야함
     /// 실패시 APIError 를 반환받음
@@ -110,13 +132,15 @@ class CoinChartViewModel {
         }
     }
     
-    
-    
-    ///코인정보를 전달합니다.
+    ///코인정보와 날짜를 를 전달합니다.
     private func prefetchCoinMainInfo(coinMarket : CoinMarket){
+        let result =  DateAssistance.shared.localDate(coinMarket.lastUpdated)
+        
         let coinModel = CoinPriceModel(coinName: coinMarket.name, coinImage: coinMarket.image, persentTage: coinMarket.priceChangePercentage24H, current: coinMarket.currentPrice)
         mainCoinInfoOutput.value = coinModel
+        dateLabelInfoOutput.value = result + " 업데이트"
     }
+    
     /// 컬렉션뷰 셀의 데이터를 전달합니다.....
     private func prefetchCoinHighLowInfo(coinMarket: CoinMarket) {
         let high = NumberFormetter.shared.makeKRW(price: coinMarket.high24H)
@@ -128,6 +152,7 @@ class CoinChartViewModel {
         let second = chartSectionData(normal: low, supers: superLow)
         collectionDataOutput.value = [first,second]
     }
+    
     /// 컬러의 true false 의 따라 색을 구분합니다.
     private func prefetchCellColorBool(row: Int){
         let bool = CharSection.allCases[row].colorBool

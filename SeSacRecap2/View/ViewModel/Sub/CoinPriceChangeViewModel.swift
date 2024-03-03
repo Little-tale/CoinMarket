@@ -53,12 +53,18 @@ class CoinPriceChangeViewModel {
         }
     }
     private func processing(_ coin: CoinPriceModelString){
-        let price = NumberFormetter.shared.rounded(coin.price, type: inputCuntry.value)
-        
+        let price = coin.price //NumberFormetter.shared.rounded(coin.price, type: inputCuntry.value)
+        if Double(coin.percentage) ?? 0 < 0 {
+            isPlusOrNot.value = false
+        }else {
+            isPlusOrNot.value = true
+        }
         let persent = NumberFormetter.shared.rounded(coin.percentage, type: inputCuntry.value)
-        
+        print("(!)()()프로세싱 또함....persent",persent)
+        print("()()()프로세싱 또함....price",price)
         priceProcessing.value = price
         percentageProcessing.value = persent
+       
     }
     
 }

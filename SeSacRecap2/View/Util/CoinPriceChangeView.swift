@@ -46,27 +46,33 @@ class CoinPriceChangeView: BaseView {
         priceLabel.font = .systemFont(ofSize: 20, weight: .bold)
         persantageLable.font = .systemFont(ofSize: 14, weight: .semibold)
         persantageLable.textAlignment = .center
+        
     }
     private func updateLayout(_ aliment: Alignment) {
         persantageLable.snp.remakeConstraints { make in
-            make.bottom.equalToSuperview().inset(8)
-            make.width.equalToSuperview().multipliedBy(0.4)
+            make.bottom.equalToSuperview().inset( 8 )
+            // make.width.equalToSuperview().multipliedBy(0.4)
+            // make.width.lessThanOrEqualTo(40)
             switch aliment {
             case .right:
-                make.right.equalTo(self).inset(12)
+                make.trailing.equalTo(self).inset(12)
             case .left:
-                make.left.equalTo(self).offset(12)
+                make.leading.equalTo(self).offset(12)
             }
         }
         priceLabel.snp.remakeConstraints { make in
             make.bottom.equalTo(persantageLable.snp.top).inset( -8)
             switch aliment {
             case .right:
-                make.right.equalTo(self).inset(12)
+                make.width.equalToSuperview().inset(-4)
+                make.trailing.equalTo(self).inset(12)
             case .left:
-                make.left.equalTo(self).offset(12)
+                //make.width.equalToSuperview().inset(-4)
+                make.leading.equalTo(self).offset(12)
             }
         }
+        priceLabel.textAlignment = .right
+        //priceLabel.backgroundColor = .myPink
     }
     override func subscribe() {
         coinViewModel.alimentCase.bind {[weak self] aliment in
@@ -76,7 +82,7 @@ class CoinPriceChangeView: BaseView {
         coinViewModel.percentageProcessing.bind {[weak self]  percent in
             guard let self else {return}
             guard let percent else {return}
-            persantageLable.text = percent
+            persantageLable.text = "  " + percent + "  "
             print("^^^^^^^ percent",percent)
         }
         coinViewModel.priceProcessing.bind { [weak self] price in
@@ -95,5 +101,6 @@ class CoinPriceChangeView: BaseView {
                 persantageLable.textColor = .myblue
             }
         }
+        
     }
 }

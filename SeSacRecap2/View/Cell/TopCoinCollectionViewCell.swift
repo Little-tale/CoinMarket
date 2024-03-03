@@ -19,28 +19,23 @@ class TopCoinCollectionViewCell: BaseCollectionViewCell{
         contentView.addSubview(rankLabel)
         contentView.addSubview(coinInfoView)
         contentView.addSubview(coinPriceView)
-        rankLabel.backgroundColor = .red
-        coinInfoView.backgroundColor = .myPink
-        coinPriceView.backgroundColor = .myblue
-        coinPriceView.persantageLable.backgroundColor = .mypurple
-        coinPriceView.priceLabel.backgroundColor = .brown
     }
     override func configureLayout() {
-        rankLabel.snp.remakeConstraints { make in
+        rankLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(8)
             make.centerY.equalToSuperview()
             make.width.equalTo(24)
         }
-        coinInfoView.snp.remakeConstraints { make in
+        coinInfoView.snp.makeConstraints { make in
             make.leading.equalTo(rankLabel.snp.trailing).offset(4)
             make.centerY.equalToSuperview()
             make.verticalEdges.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
         }
-        coinPriceView.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview().inset( -8 )
-            make.centerY.equalToSuperview()
-            make.leading.lessThanOrEqualTo(coinInfoView.snp.trailing).offset(8)
+        coinPriceView.snp.makeConstraints{ make in
+            make.trailing.centerY.equalToSuperview()
+            make.leading.equalTo(coinInfoView.snp.trailing).offset(8)
+            make.bottom.equalToSuperview().inset(4)
         }
         
     }
@@ -49,7 +44,10 @@ class TopCoinCollectionViewCell: BaseCollectionViewCell{
         coinPriceView.coinViewModel.alimentCase.value = .right
         subscribe()
         rankLabel.font = .systemFont(ofSize: 20, weight: .semibold)
-        
+        coinPriceView.priceLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        coinInfoView.coinName.font = .systemFont(ofSize: 14, weight: .bold)
+        coinPriceView.priceLabel.textAlignment = .right
+        coinPriceView.priceLabel.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     deinit{
         print("@@@@",#function, self)
@@ -62,12 +60,14 @@ extension TopCoinCollectionViewCell{
             guard let self else {return}
             guard let coinInfoModel else {return}
             coinInfoView.viewModel.inputModel.value = coinInfoModel
+            print("()()()*********",coinInfoModel)
         }
         
         cellViewModel.outputCoinItemModel.bind { [weak self] coinItem in
             guard let self else {return}
             guard let coinItem else {return}
             coinPriceView.coinViewModel.coinPriceModelString.value = coinItem
+            print("()()()*********",coinItem)
         }
     }
 }

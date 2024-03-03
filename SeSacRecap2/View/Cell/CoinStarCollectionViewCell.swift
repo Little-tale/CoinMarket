@@ -18,11 +18,11 @@ class CoinStarCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(coinPriceChangeView)
     }
     override func configureLayout() {
-        coinInfoView.snp.remakeConstraints { make in
+        coinInfoView.snp.makeConstraints { make in
             make.horizontalEdges.top.equalTo(contentView.safeAreaLayoutGuide)
             make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
-        coinPriceChangeView.snp.remakeConstraints { make in
+        coinPriceChangeView.snp.makeConstraints{ make in
             make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide)
             make.top.equalTo(coinInfoView.snp.bottom)
         }
@@ -32,7 +32,20 @@ class CoinStarCollectionViewCell: BaseCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         setupShadow(nil)
+        //setupDefaults(nil)
     }
+//    func setupDefaults(_ bool: Bool?){
+//        guard let bool else {return}
+//        if !bool {return}
+//        coinInfoView.snp.remakeConstraints { make in
+//            make.horizontalEdges.top.equalTo(contentView.safeAreaLayoutGuide)
+//            make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
+//        }
+//        coinPriceChangeView.snp.remakeConstraints { make in
+//            make.leading.equalTo(coinInfoView.snp.trailing)
+//
+//        }
+//    }
     
     func setupShadow(_ bool: Bool? ){
         guard let bool else {return}

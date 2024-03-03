@@ -123,7 +123,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadRows(at: [indexPath], with: .automatic)
         navigationController?.pushViewController(vc, animated: true)
         vc.viewModel.inputViewdidLoadTrigger.bind {[weak self] _ in
-            guard let self else {return}
+            guard self != nil else {return}
             tableView.reloadData()
         }
     }
@@ -136,7 +136,7 @@ extension SearchViewController {
     func favoriteButtonClicked(_ sender: UIButton){
         print(sender.tag)
         viewModel.coinInfoInput.value = sender.tag
-        let cell = IndexPath(row: sender.tag, section: 0)
+        _ = IndexPath(row: sender.tag, section: 0)
 //        homeView.tableView.reloadRows(at: [cell], with: .automatic)
     }
 }
@@ -151,7 +151,7 @@ extension SearchViewController {
         searchController.searchBar.delegate = self
         self.navigationItem.searchController = searchController
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Search"
+        self.navigationItem.title = NavigationTitleSection.Search.title
         self.navigationItem.hidesSearchBarWhenScrolling = true
     }
 }

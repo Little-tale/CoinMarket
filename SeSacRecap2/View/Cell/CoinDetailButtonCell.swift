@@ -13,8 +13,8 @@ class CircleImageView: UIImageView{
         super.layoutSubviews()
         self.layer.cornerRadius = self.frame.width / 2
         self.clipsToBounds = true
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.green.cgColor
+        self.layer.borderWidth = 3
+        self.layer.borderColor = UIColor.mypurple.cgColor
     }
 }
 

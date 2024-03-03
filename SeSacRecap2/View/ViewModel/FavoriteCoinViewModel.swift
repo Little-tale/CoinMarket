@@ -103,7 +103,7 @@ class FavoriteCoinViewModel {
     private func nextCoin(_ item: Int) {
         guard let value = succesOutPut.value else {return}
         let id = value[item]
-        guard let table = repository.getCoin(id.id) else {return}
+        guard repository.getCoin(id.id) != nil else {return}
         let coin = Coin(id: id.id, name: id.name, symbol: id.symbol, thumb: id.image)
         nextCoinOutPut.value = coin
     }

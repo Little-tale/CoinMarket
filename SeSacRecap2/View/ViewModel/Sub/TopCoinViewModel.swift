@@ -31,7 +31,6 @@ import Foundation
  */
 
 class TopCoinViewModel {
-
     var vs_currency : Observable<vsCurrency> = Observable(.usa)
     var inputNFT: Observable<Nft?> = Observable(nil)
     var inputCoin: Observable<CoinItem?> = Observable(nil)
@@ -53,18 +52,28 @@ class TopCoinViewModel {
     }
     private func processingModel(nft: Nft? = nil, coinItem: CoinItem? = nil) {
         if let nft {
+            
             let coinInfoModel = CoinInfoModel(imageName: nft.thumb, coinName: nft.name, symBol: nft.symbol)
             let coinItem = CoinPriceModelString(price: nft.data.floorPrice, percentage: nft.data.floorPriceInUsd24HPercentageChange)
+            print("(!)(!)(!)q프로세싱후TopCoinViewModel",nft.data.floorPriceInUsd24HPercentageChange)
             outputCoinInfoModel.value = coinInfoModel
             outputCoinItemModel.value = coinItem
             
+            print(coinItem)
+            print("()()()q프로세싱후 TopCoinViewModel",coinItem,coinInfoModel)
         } else if let coinItem {
             
             let coinInfoModel = CoinInfoModel(imageName: coinItem.item.small, coinName: coinItem.item.name, symBol: coinItem.item.symbol)
-            let coinItem = CoinPriceModelString(price: coinItem.item.data.price, psercentage: coinItem.item.data.priceChangePercentage24H[vs_currency.value.query] ?? 0)
             
+            let coinItems = CoinPriceModelString(
+                price: coinItem.item.data.price,
+                psercentage: coinItem.item.data.priceChangePercentage24H [
+                    vs_currency.value.moneyType
+                ] ?? 0
+            )
+            print("(!)(!)()q프로세싱후TopCoinViewModel",coinItem.item.data.priceChangePercentage24H)
             outputCoinInfoModel.value = coinInfoModel
-            outputCoinItemModel.value = coinItem
+            outputCoinItemModel.value = coinItems
         }
         
     }
