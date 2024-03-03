@@ -33,6 +33,23 @@ final class FavoriteCoinViewController: HomeBaseViewController<CollectionHomeVie
         homeView.collectionCoinView.dropDelegate = self
         homeView.collectionCoinView.dragInteractionEnabled = true
     }
+    deinit{
+        print("왜 즐찾",self)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        viewModel.viewWillTrigger.value = nil
+//        viewModel.maximViewWillTrigger.value = nil
+//        viewModel.errorOutput.value = nil
+        // 이렇게 해보았지만 역시.... 안됨
+        // 이건 말이 될것 같은데
+        // 
+//        viewModel.viewWillTrigger.unBind()
+//        viewModel.maximViewWillTrigger.unBind()
+//        viewModel.errorOutput.unBind()
+        
+        viewModel.allLiten.unBindAll()
+    }
 }
 
 extension FavoriteCoinViewController: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -69,9 +86,15 @@ extension FavoriteCoinViewController {
             guard let error else {return}
             guard let self else {return}
             showAlert(error: error)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.viewWillTrigger.value = ()
+            }
         }
-        viewModel.succesOutPut.bind {[weak self] _ in
+        viewModel.succesOutPut.bind {[weak self] sucsess in
             guard let self else {return}
+            guard let sucsess else {return}
             homeView.collectionCoinView.reloadData()
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 [weak self] in
@@ -93,6 +116,7 @@ extension FavoriteCoinViewController {
             }
             navigationController?.pushViewController(vc, animated: true)
         }
+        
     }
 }
 

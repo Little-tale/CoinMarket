@@ -28,12 +28,22 @@ final class SearchViewModel {
     
     // test
     // var realmModel.
-
+    var allListen = ObservableGroup()
+    var allListe2: [Unbinding] = []
     // Static
     let searchModel = searchCoin.self
     let repository = RealmRepository()
     
     init(){
+        allListen.add(searchInPut)
+        allListen.add(coinInfoInput)
+        allListen.add(coinButtonActive)
+        allListen.add(triggerViewController)
+        allListen.add(tableErrorOutput)
+        allListen.add(saveSuccesOutput)
+        allListen.add(checkedButtonOutput)
+        allListen.add(reloadTrigger)
+        
         searchInPut.bind { [weak self] searchText in
             guard let searchText else {return}
             self?.searchOfCoin(searchText)
@@ -51,6 +61,12 @@ final class SearchViewModel {
             self.favoriteSetting(data)
             print(searchOutput.value[row])
             // triggerViewController.value = ()
+        }
+        triggerViewController.bind {  [weak self] void in
+            guard let void else {return}
+            guard let self else {return}
+            guard let text = searchInPut.value else {return}
+            searchOfCoin(text)
         }
         
     }

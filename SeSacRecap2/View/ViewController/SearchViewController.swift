@@ -30,6 +30,13 @@ final class SearchViewController: HomeBaseViewController<TableHomeView> {
         settingNavigation()
         
     }
+    deinit{
+        print("왜서치",self)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.allListen.unBindAll()
+    }
 }
 // dataSource, delegate etc Setting
 extension SearchViewController {
@@ -51,13 +58,21 @@ extension SearchViewController {
             guard let error else {return}
             guard let self else {return}
             showAlert(error: error)
-    
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.triggerViewController.value = ()
+            }
         }
         viewModel.tableErrorOutput.bind { [weak self] error in
             guard let error else {return}
             guard let self else {return}
             showAlert(error: error)
-           
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.triggerViewController.value = ()
+            }
         }
         viewModel.saveSuccesOutput.bind { [weak self] success in
             guard let success else {return}
@@ -127,6 +142,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.reloadData()
         }
     }
+    
     
 }
 // MARK: Objc Function

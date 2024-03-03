@@ -30,13 +30,27 @@ final class FavoriteCoinViewModel {
     
     let testOiu :Observable<Void?> = Observable(nil)
     
+    // ALL Listen
+    var allLiten = ObservableGroup()
     
     init(){
+        allLiten.add(indexPathInput)
+        allLiten.add(nextIndexPathInput)
+        allLiten.add(viewWillTrigger)
+        allLiten.add(maximViewWillTrigger)
+        allLiten.add(errorOutput)
+        allLiten.add(succesOutPut)
+        allLiten.add(coinInModelOutPut)
+        allLiten.add(coinPriceModelOutPut)
+        allLiten.add(nextCoinOutPut)
+        allLiten.add(testOiu)
+        
         viewWillTrigger.bind {[weak self] Void in
             guard let self else {return}
             guard Void != nil else {return}
             let list = repository.getFavoriteList()
             settingCoinList(list)
+            
             print("@@@",repository.getFavoriteList().count)
         }
         indexPathInput.bind {[weak self] item in
@@ -79,9 +93,11 @@ final class FavoriteCoinViewModel {
             switch result {
             case .success(let success):
                 succesOutPut.value = success
+               
                 print("^^^success")
             case .failure(let failure):
                 errorOutput.value = failure
+               
                 print("^^^failure")
             }
         }
@@ -99,9 +115,11 @@ final class FavoriteCoinViewModel {
             switch result {
             case .success(let success):
                 succesOutPut.value = success
+               
                 print("^^^success")
             case .failure(let failure):
                 errorOutput.value = failure
+               
                 print("^^^failure")
             }
         }
@@ -114,8 +132,10 @@ final class FavoriteCoinViewModel {
         let coinInfoModel = CoinInfoModel(imageName: data.image, coinName: data.name, symBol: data.symbol)
         coinInModelOutPut.value = coinInfoModel
         
+        
         let coinPriceModel = CoinPiceModel(price: data.currentPrice, percentage: data.priceChangePercentage24H)
         coinPriceModelOutPut.value = coinPriceModel
+       
     }
     
     // 리스트의 테이블을 꺼내 다음뷰에 전달합니다.
@@ -125,6 +145,7 @@ final class FavoriteCoinViewModel {
         guard repository.getCoin(id.id) != nil else {return}
         let coin = Coin(id: id.id, name: id.name, symbol: id.symbol, thumb: id.image)
         nextCoinOutPut.value = coin
+        
     }
 }
 

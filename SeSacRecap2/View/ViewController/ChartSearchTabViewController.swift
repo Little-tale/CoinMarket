@@ -48,6 +48,9 @@ final class ChartSearchTabViewController: UITabBarController {
         }
         tabBar.items?.last?.isEnabled = false
     }
+    deinit{
+        print("왜탭바",self)
+    }
 }
 
 

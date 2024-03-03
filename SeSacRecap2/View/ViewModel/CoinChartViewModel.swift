@@ -34,8 +34,21 @@ final class CoinChartViewModel {
     // Static
     var repository = RealmRepository()
     
-    
+    // ALLLiten
+    // var allLiten: ObservableGroup<[Any]> = ObservableGroup([])
+    var allListen = ObservableGroup()
     init() {
+        allListen.add(coinInfoInput)
+        allListen.add(cellTextColorInput)
+        allListen.add(checkedButtonStateInput)
+        allListen.add(inputViewdidLoadTrigger)
+        allListen.add(modernization)
+        allListen.add(mainCoinInfoOutput)
+        allListen.add(collectionDataOutput)
+        allListen.add(chartDataOutPut)
+        allListen.add(firstButtonState)
+        allListen.add(dateLabelInfoOutput)
+        
         coinInfoInput.bind {[weak self] coin in
             guard let coin else {return}
             guard let self else {return}

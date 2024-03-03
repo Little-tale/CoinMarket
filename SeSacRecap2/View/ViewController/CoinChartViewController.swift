@@ -81,7 +81,13 @@ final class CoinChartViewController: BaseViewController {
         dateLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         dateLabel.textColor = .darkKey
     }
-
+    deinit{
+        print("왜차트",self)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.allListen.unBindAll()
+    }
 }
 
 //MARK: 컬렉션뷰 세팅
@@ -204,6 +210,11 @@ extension CoinChartViewController {
             guard let message else {return}
             guard let self else {return}
            showAlert(text: message, message: "")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.modernization.value = ()
+            }
         }
     }
 }

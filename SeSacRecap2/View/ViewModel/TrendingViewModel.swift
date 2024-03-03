@@ -24,16 +24,24 @@ final class TrendingViewModel {
     
     var compliteTrigger: Observable<Void?> = Observable(nil)
     
+    var allLiten = ObservableGroup()
+    
     // MARK: 이렇게 그냥 하나 선언해도 될까요...?
     //    let sections: [TrendingViewSection] = TrendingViewSection.allCases
 
     init(){
+        allLiten.add(inputSections)
+        allLiten.add(inputMoreObserver)
+        allLiten.add(outputSection)
+        allLiten.add(outputTableSectionCount)
+        allLiten.add(compliteTrigger)
         
         inputSections.bind {[weak self] sections in
             guard let self else {return}
            // guard let sections else {return}
             checkedData(sections)
             sectionSetting(sections)
+            allLiten.add(inputSections)
         }
 
     }
@@ -47,11 +55,13 @@ final class TrendingViewModel {
         print("^^^^^^section",data)
         outputSection.value = data
         checkedData(data)
+        
     }
     
     private func checkedData(_ section: [TrendingViewSection]){
         outputTableSectionCount.value = section.count
         compliteTrigger.value = ()
+        
     }
     
     

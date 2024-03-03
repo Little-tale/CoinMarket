@@ -28,11 +28,26 @@ final class Top15Top7ViewModel {
     var outPutAPIError: Observable<APIError?> = Observable(nil)
     var outPutCoin: Observable<Coin?> = Observable(nil)
     
+    
+    // MARK: ALLLiten
+    var allLiten = ObservableGroup()
+    
     init(){
+        allLiten.add(viewWillTrigger)
+        allLiten.add(coinItem)
+        allLiten.add(inputIndexPath)
+        allLiten.add(makeCoinInput)
+        allLiten.add(outputNfts)
+        allLiten.add(outputCoinItem)
+        allLiten.add(outPutAPIError)
+        allLiten.add(outPutCoin)
+        
+        
         viewWillTrigger.bind { [weak self] void in
             guard void != nil else {return}
             guard let self else {return}
             fetch()
+            allLiten.add(viewWillTrigger)
         }
         coinItem.bind { [weak self] coin in
             guard let coin else {return}
@@ -66,9 +81,11 @@ final class Top15Top7ViewModel {
             // 알고보니 엄청나게 떨어지고 있는데 그걸 뒤늦게 차리고 한강에 갈지도 말이야.
             let coin = Coin(id: nft.name, name: nft.name, symbol: nft.symbol, thumb: nft.thumb)
             outPutCoin.value = coin
+            
         } else if let coinItem{
             let coin = Coin(id: coinItem.item.id, name: coinItem.item.name, symbol: coinItem.item.symbol, thumb: coinItem.item.small)
             outPutCoin.value = coin
+           
         }
     }
     
@@ -85,6 +102,7 @@ final class Top15Top7ViewModel {
                 divideStruct(success)
             case .failure(let failure):
                 outPutAPIError.value = failure
+                
             }
         }
     }
@@ -93,7 +111,7 @@ final class Top15Top7ViewModel {
     private func divideStruct(_ trending : Trending){
         coinItem.value = trending.coins
         outputNfts.value = trending.nfts
-        
+       
     }
     // MARK: coin 정렬
     private func sortedFfts(_ coin: [CoinItem]){
@@ -101,8 +119,8 @@ final class Top15Top7ViewModel {
             return first.item.market_cap_rank < second.item.market_cap_rank
         }
         outputCoinItem.value = sorted
-        // dump(sorted)
         completeOutput.value = ()
+       
     }
     
 }

@@ -36,6 +36,15 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
         homeView.customTableView.delegate = self
         homeView.customTableView.rowHeight = 200
     }
+    deinit{
+        print(self)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        trendingViewModel.allLiten.unBindAll()
+        favoriteViewModel.allLiten.unBindAll()
+        topViewModel.allLiten.unBindAll()
+    }
 }
 
 extension NewTrendViewController {
@@ -67,11 +76,21 @@ extension NewTrendViewController {
             guard let self else {return}
             guard let error  else {return}
             showAlert(error: error)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                [weak self] in
+                guard let self else {return}
+                favoriteViewModel.viewWillTrigger.value = ()
+            }
         }
         topViewModel.outPutAPIError.bind {  [weak self] error in
             guard let self else {return}
             guard let error  else {return}
             showAlert(error: error)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                [weak self] in
+                guard let self else {return}
+                favoriteViewModel.viewWillTrigger.value = ()
+            }
         }
     }
 }
@@ -101,7 +120,7 @@ extension NewTrendViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureLayoutForSectionType(cellType[indexPath.section])
         
         cell.newDelegate = self
-        DispatchQueue.main.async{
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
             cell.collectionView.reloadData()
         }
         return cell
