@@ -73,6 +73,7 @@
 		7BE7E3092B943CA0000E57A0 /* DateAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E3082B943CA0000E57A0 /* DateAssistance.swift */; };
 		7BE7E30B2B945C91000E57A0 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E30A2B945C91000E57A0 /* CustomMarkerView.swift */; };
 		7BE7E3102B947159000E57A0 /* UserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E30F2B947159000E57A0 /* UserButton.swift */; };
+		7BE7E3122B94BE16000E57A0 /* MoreCollectionViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE7E3112B94BE16000E57A0 /* MoreCollectionViewcell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		7BE7E3082B943CA0000E57A0 /* DateAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAssistance.swift; sourceTree = "<group>"; };
 		7BE7E30A2B945C91000E57A0 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		7BE7E30F2B947159000E57A0 /* UserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButton.swift; sourceTree = "<group>"; };
+		7BE7E3112B94BE16000E57A0 /* MoreCollectionViewcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCollectionViewcell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +354,7 @@
 				7B35E84E2B90877D004E4745 /* CoinStarCollectionViewCell.swift */,
 				7B8FCFF02B92D88C00F3CBA9 /* TopCoinCollectionViewCell.swift */,
 				7B8FCFFB2B9333A200F3CBA9 /* NewTableInCollectionCell.swift */,
+				7BE7E3112B94BE16000E57A0 /* MoreCollectionViewcell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				7B5C3E3E2B8DAF4E005FD3BC /* SceneDelegate.swift in Sources */,
 				7B5C3E572B8DB1F9005FD3BC /* BaseViewController.swift in Sources */,
 				7B5C3ECA2B8F2DAD005FD3BC /* CoinPriceModel.swift in Sources */,
+				7BE7E3122B94BE16000E57A0 /* MoreCollectionViewcell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

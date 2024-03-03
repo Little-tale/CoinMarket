@@ -47,6 +47,8 @@ final class NewTableInCollectionFavoriteTableCell:BaseTableViewCell {
         
         collectionView.register(TopCoinCollectionViewCell.self, forCellWithReuseIdentifier: TopCoinCollectionViewCell.reusableIdentifier)
         
+        collectionView.register(ModeCollectionViewCell.self, forCellWithReuseIdentifier: ModeCollectionViewCell.reusableIdentifier)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         // MARK: 페이징 하려면 이걸 해야함

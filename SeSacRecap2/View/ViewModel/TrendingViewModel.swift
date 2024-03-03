@@ -17,6 +17,8 @@ final class TrendingViewModel {
     
     var inputSections: Observable<[TrendingViewSection]> = Observable([])
     
+    var inputMoreObserver: Observable<Void?> = Observable(nil)
+    
     var outputSection: Observable<[TrendingViewSection]> = Observable([])
     var outputTableSectionCount: Observable<Int> = Observable(0)
     

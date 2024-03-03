@@ -159,7 +159,14 @@ extension CoinChartViewController {
     func subscribe(){
         viewModel.mainCoinInfoOutput.bind {[weak self] coinModel in
             guard let self else {return}
+            guard let coinModel else {return}
             mainCoinView.viewModel.coinInput.value = coinModel
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.modernization.value = ()
+                showAlert(text: "업데이트!", message: "최신화!")
+            }
         }
         viewModel.collectionDataOutput.bind {[weak self] _ in
             guard let self else {return}

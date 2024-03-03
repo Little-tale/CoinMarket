@@ -63,9 +63,8 @@ final class FavoriteCoinViewModel {
                 return
             }
             print("@@@  3 < ")
-            let list = repository.getFavoriteList()
-            settingCoinList(list)
-            print("@@@",repository.getFavoriteList().count)
+            let list = repository.getFavoriteLatest()
+            threeMaxCoinList(list)
         }
     }
     // 코인 리스트를 가져오고 요청합니다.
@@ -76,6 +75,26 @@ final class FavoriteCoinViewModel {
         if idArray.isEmpty {return}
         
         APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: idArray, contry: .kor, spakelType: false)) {  [weak self] result in
+            guard let self else {return}
+            switch result {
+            case .success(let success):
+                succesOutPut.value = success
+                print("^^^success")
+            case .failure(let failure):
+                errorOutput.value = failure
+                print("^^^failure")
+            }
+        }
+    }
+    private func threeMaxCoinList(_ coins: [CoinSearchTable]){
+        print("@@@@@@@@",#function)
+        let idArray = coins.map { $0.coinId }
+        print("@@@@**", idArray)
+        if idArray.isEmpty {return}
+        // MARK: 그냥 넣으려고 하면 Array<String>.SubSequence 라고 뻐팅김
+        // 그럼 다시 너 어레이야~ 해주니 잘만됨
+        let maxArray = Array(idArray.suffix(3))
+        APIReqeustManager.shared.fetchRequest(type: [CoinMarket].self, api: .markets(marketId: maxArray, contry: .kor, spakelType: false)) {  [weak self] result in
             guard let self else {return}
             switch result {
             case .success(let success):
@@ -108,6 +127,10 @@ final class FavoriteCoinViewModel {
         nextCoinOutPut.value = coin
     }
 }
+
+
+
+
 //    private func settingMaxCoinList(_ coins: [CoinSearchTable]){
 //        print("@@@@@@@@",#function)
 //        let idArray = coins.map { $0.coinId }

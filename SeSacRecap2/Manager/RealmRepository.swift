@@ -161,6 +161,14 @@ final class RealmRepository {
         return array.first
     }
     
+    // MARK: 최신 순으로 보내드립니다.
+    func getFavoriteLatest() -> [CoinSearchTable] {
+        let results = realm.objects(coinRealmTable).sorted(byKeyPath: "regDate", ascending: true)
+        print(results)
+        let array = Array(results)
+        return array
+    }
+    
 }
 
 

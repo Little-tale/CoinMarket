@@ -60,7 +60,6 @@ extension FavoriteCoinViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.nextIndexPathInput.value = indexPath.item
     }
-    
 }
 
 
@@ -74,6 +73,12 @@ extension FavoriteCoinViewController {
         viewModel.succesOutPut.bind {[weak self] _ in
             guard let self else {return}
             homeView.collectionCoinView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                [weak self] in
+                guard let self else {return}
+                viewModel.viewWillTrigger.value = ()
+                showAlert(text: "업데이트!", message: "최신화!")
+            }
         }
         viewModel.nextCoinOutPut.bind { [weak self] coinModel in
             guard let self else {return}

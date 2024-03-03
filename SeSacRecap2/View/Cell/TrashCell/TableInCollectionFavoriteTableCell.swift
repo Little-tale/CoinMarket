@@ -36,6 +36,8 @@ final class TableInCollectionFavoriteTableCell: BaseTableViewCell {
     
     override func registers() {
         collecionView.register(CoinStarCollectionViewCell.self, forCellWithReuseIdentifier: CoinStarCollectionViewCell.reusableIdentifier)
+        collecionView.register(ModeCollectionViewCell.self, forCellWithReuseIdentifier: ModeCollectionViewCell.reusableIdentifier)
+        
         print(self)
     }
     
@@ -90,11 +92,11 @@ extension TableInCollectionFavoriteTableCell: UICollectionViewDelegate, UICollec
        
         
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        customDelegate?.didSelectItemAt(collectionView: collectionView, indexPath: indexPath)
-        
-        
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+////        customDelegate?.didSelectItemAt(collectionView: collectionView, indexPath: indexPath)
+//        
+//        
+//    }
     
 }
 

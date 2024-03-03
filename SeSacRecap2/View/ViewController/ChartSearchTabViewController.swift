@@ -21,8 +21,14 @@ final class ChartSearchTabViewController: UITabBarController {
         super.viewDidLoad()
         
         delegate = self
-        
+        // MARK: 옵저버 여기서... 해도 되려나..?
         let trentViewController =  NewTrendViewController()
+        trentViewController.trendingViewModel.inputMoreObserver.bind { [weak self] void in
+            guard let self else {return}
+            guard let void else {return}
+            self.selectedIndex = 2
+        }
+        
         let searchViewController = SearchViewController()
         let FavoriteViewController = FavoriteCoinViewController()
         

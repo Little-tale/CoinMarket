@@ -19,6 +19,7 @@ final class CoinChartViewModel {
     
     // MARK: 트리거
     var inputViewdidLoadTrigger: Observable<Void> = Observable(())
+    var modernization: Observable<Void?> = Observable(nil)
     
     // OUTPUT
     var mainCoinInfoOutput: Observable<CoinPriceModel?> = Observable(nil)
@@ -60,6 +61,12 @@ final class CoinChartViewModel {
             guard let coinId  else {return}
             fetch(coinId)
             checkLikeButton(coinId)
+        }
+        modernization.bind {[weak self] void in
+            guard let self else {return}
+            guard let void  else {return}
+            guard let id = coinIdInput.value else {return}
+            fetch(id)
         }
     }
     // MARK: 이부분을 좀더 단단하게 해야 해결할듯

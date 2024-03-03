@@ -26,6 +26,7 @@ final class TableHomeView: BaseView {
         customTableView.register(TableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: TableInCollectionFavoriteTableCell.reusableIdentifier)
         
         customTableView.register(NewTableInCollectionFavoriteTableCell.self, forCellReuseIdentifier: NewTableInCollectionFavoriteTableCell.reusableIdentifier)
+    
     }
     override func designView() {
         customTableView.backgroundColor = .white

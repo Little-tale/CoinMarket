@@ -15,7 +15,7 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
     /// Top 15, nft 뷰모델
     let topViewModel = Top15Top7ViewModel()
     
-    
+    let repo = RealmRepository()
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribe()
@@ -57,7 +57,7 @@ extension NewTrendViewController {
         trendingViewModel.compliteTrigger.bind { [weak self] void in
             guard let self else {return}
             guard void != nil else {return}
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.31) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.38) {
                 self.homeView.customTableView.reloadData()
                 print("%%%%%",self.trendingViewModel.inputSections.value.count)
             }
@@ -124,7 +124,12 @@ extension NewTrendViewController: TableInCollectionFavoriteTableDelegate {
         print("@@@@@@ numberOfItemsInSection", resultSection)
         switch resultSection {
         case .favorite:
-            return favoriteViewModel.succesOutPut.value?.count ?? 0
+            if let count = favoriteViewModel.succesOutPut.value?.count,
+               count > 0 {
+                return count + 1
+            } else {
+                return 0
+            }
         case .top15Coin:
             return topViewModel.outputCoinItem.value?.count ?? 0
         case .top7NFT:
@@ -141,14 +146,22 @@ extension NewTrendViewController: TableInCollectionFavoriteTableDelegate {
             print("custom Cell Error Check Plz THX")
             return UICollectionViewCell()
         }
+        guard let moreCell = collectionView.dequeueReusableCell(withReuseIdentifier: ModeCollectionViewCell.reusableIdentifier, for: indexPath) as? ModeCollectionViewCell else {
+            print("모어 셀 문제")
+            return UICollectionViewCell()
+        }
         
         let resultSection = trendingViewModel.outputSection.value[collectionView.tag]
         cell.rankLabel.text = String(indexPath.item + 1)
+        
         print("@@@@@@ cellForItemAt", resultSection)
         switch resultSection {
         case .favorite:
+            if indexPath.item >= (favoriteViewModel.succesOutPut.value?.count ?? 0) {
+                return moreCell
+            }
             favoriteViewModel.indexPathInput.value = indexPath.item
-            
+
             favoriteCell.setupShadow(true)
             favoriteCell.coinPriceChangeView.coinViewModel.alimentCase.value = .left
             
@@ -187,7 +200,12 @@ extension NewTrendViewController: TableInCollectionFavoriteTableDelegate {
         
         let resultSection = trendingViewModel.outputSection.value[collectionView.tag]
         switch resultSection {
+            
         case .favorite:
+            if indexPath.item >= (favoriteViewModel.succesOutPut.value?.count ?? 0) {
+                trendingViewModel.inputMoreObserver.value = ()
+                return
+            }
             favoriteViewModel.nextIndexPathInput.value = indexPath.item
             let selected = favoriteViewModel.nextCoinOutPut.value
             vc.viewModel.coinInfoInput.value = selected
@@ -214,6 +232,16 @@ extension NewTrendViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
 }
+
+
+
+/*
+ //            if (indexPath.item - 2 ) > favoriteViewModel.succesOutPut.value?.count ?? 0 {
+ //                print("왜 동작안해 짜증나게")
+ //                return moreCell
+ //            }
+ */
+
 
 
 //        let rightBarButton = UIBarButtonItem(customView: rightImageView)
