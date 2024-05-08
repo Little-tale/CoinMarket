@@ -131,6 +131,7 @@ enum APIError:Error {
     case serverError
     case modelError
     case dataNoHave
+    case cantChangeOfHTTPResponse
     
     var title: String {
        return "에러발생"
@@ -138,7 +139,7 @@ enum APIError:Error {
     
     var message: String {
         switch self {
-        case .canMakeResults:
+        case .canMakeResults, .cantChangeOfHTTPResponse:
             "통신에 문제가 발생했어요!"
         case .networkError:
             "통신에 문제가 발생했어요!"

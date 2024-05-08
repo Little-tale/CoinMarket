@@ -29,6 +29,14 @@ final class URLSessionManager {
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
+        guard let response = response as? HTTPURLResponse else {
+            throw APIError.cantChangeOfHTTPResponse
+        }
+        
+        guard response.statusCode == 200 else {
+            throw APIError.canMakeResults
+        }
+        
         let jsDecode = JSONDecoder()
         jsDecode.keyDecodingStrategy = .useDefaultKeys
         
