@@ -94,19 +94,19 @@ final class Top15Top7ViewModel {
     
     // MARK: 네트워크
     private func fetch(){
-        APIReqeustManager.shared.fetchRequest(type:  Trending.self, api: .traeding) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let success):
-//                print(success)
-                dump(success)
-                divideStruct(success)
-            case .failure(let failure):
-                print("ERRORRRORRRORR \(failure)")
-                outPutAPIError.value = failure
-                
+        Task {
+            do {
+                let result = try await URLSessionManager.shared.fetchCoin(type: Trending.self, apiType: .traeding)
+                divideStruct(result)
+            } catch(let error) {
+                guard let error = error as? APIError else {
+                    outPutAPIError.value = .clientError
+                    return
+                }
+                outPutAPIError.value = error
             }
         }
+         
     }
     
     // MAKR: 각 통신 구조체로 분리

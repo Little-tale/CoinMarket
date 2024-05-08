@@ -13,7 +13,7 @@ final class URLSessionManager {
    
     private init() {}
     
-    let shared = URLSessionManager()
+    static let shared = URLSessionManager()
     
     
     func fetchCoin<T:Decodable>(type: T.Type, apiType:APIType) async throws -> T {
