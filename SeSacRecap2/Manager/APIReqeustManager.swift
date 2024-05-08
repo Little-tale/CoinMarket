@@ -65,24 +65,11 @@ final class APIReqeustManager {
             }
         }
     }
-    // completionHandler(.failure(.canMakeResults))
-   
 }
 
 /*
- func fetchRequest<T:>(type: T.Type,api: APIType,
-                                completionHandler: @escaping(Result<T, APIError>) -> Void){
-     let baseURL = api.baseURL
-     let query = api.query
-     let url = baseURL + query
-     
-     AF.request(url).responseDecodable(of: T.self) { results in
-         switch results.result {
-         case .success(let success):
-             completionHandler(.success(success))
-         case .failure(let failure):
-             completionHandler(.failure(.canMakeResults))
-         }
-     }
- }
+ 
+ 
  */
+
+
