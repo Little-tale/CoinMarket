@@ -43,11 +43,11 @@ final class NewTrendViewController: HomeBaseViewController<TableHomeView> {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        topViewModel.viewWillTrigger.unBind()
-        favoriteViewModel.maximViewWillTrigger.unBind()
-        favoriteViewModel.viewWillTrigger.unBind()
-        topViewModel.outPutAPIError.unBind()
-        favoriteViewModel.errorOutput.unBind()
+        //topViewModel.viewWillTrigger.unBind()
+        //favoriteViewModel.maximViewWillTrigger.unBind()
+        //favoriteViewModel.viewWillTrigger.unBind()
+        //topViewModel.outPutAPIError.unBind()
+        //favoriteViewModel.errorOutput.unBind()
         disPatchQueItem?.cancel()
     }
 }

@@ -32,4 +32,5 @@ class BaseCollectionViewCell: UICollectionViewCell {
     func designView(){
         
     }
+    
 }

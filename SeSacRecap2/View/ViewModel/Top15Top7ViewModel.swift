@@ -81,6 +81,7 @@ final class Top15Top7ViewModel {
             // 알고보니 엄청나게 떨어지고 있는데 그걸 뒤늦게 차리고 한강에 갈지도 말이야.
             let coin = Coin(id: nft.name, name: nft.name, symbol: nft.symbol, thumb: nft.thumb)
             outPutCoin.value = coin
+            print("asdasdasdasd \(coin)")
             
         } else if let coinItem{
             let coin = Coin(id: coinItem.item.id, name: coinItem.item.name, symbol: coinItem.item.symbol, thumb: coinItem.item.small)
@@ -101,6 +102,7 @@ final class Top15Top7ViewModel {
                 dump(success)
                 divideStruct(success)
             case .failure(let failure):
+                print("ERRORRRORRRORR \(failure)")
                 outPutAPIError.value = failure
                 
             }
@@ -116,7 +118,7 @@ final class Top15Top7ViewModel {
     // MARK: coin 정렬
     private func sortedFfts(_ coin: [CoinItem]){
         let sorted = coin.sorted { first, second in
-            return first.item.market_cap_rank < second.item.market_cap_rank
+            return first.item.market_cap_rank ?? 0 < second.item.market_cap_rank ?? 0
         }
         outputCoinItem.value = sorted
         completeOutput.value = ()

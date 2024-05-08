@@ -51,7 +51,29 @@ struct Item: Decodable {
     let symbol: String // 코인 통화 단위
     let small: String // 코인 아이콘 리소스
     let data: ItemData
-    let market_cap_rank: Int
+    let market_cap_rank: Int // -> String으로 바껴있는거네
+    
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case symbol
+        case small
+        case data
+        case market_cap_rank
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.symbol = try container.decode(String.self, forKey: .symbol)
+        self.small = try container.decode(String.self, forKey: .small)
+        self.data = try container.decode(ItemData.self, forKey: .data)
+        
+        
+        self.market_cap_rank = try container.decode(Int.self, forKey: .market_cap_rank)
+    }
  
 }
 
@@ -64,6 +86,16 @@ struct ItemData: Codable {
     enum CodingKeys: String, CodingKey {
         case price
         case priceChangePercentage24H = "price_change_percentage_24h"
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let doubleString = try container.decode(Double.self, forKey: .price)
+        
+        self.price = String(doubleString)
+        
+        self.priceChangePercentage24H = try container.decode([String : Double].self, forKey: .priceChangePercentage24H)
     }
 }
 

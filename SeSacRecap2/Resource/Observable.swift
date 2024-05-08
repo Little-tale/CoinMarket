@@ -39,6 +39,7 @@ final class Observable<T> :Unbinding{
 protocol Unbinding {
     func unBind()
 }
+
 final class ObservableGroup {
     
     private var observables: [Unbinding] = []
@@ -52,6 +53,6 @@ final class ObservableGroup {
         observables.forEach { $0.unBind() }
     }
     deinit {
-        unBindAll()
+        // unBindAll()
     }
 }

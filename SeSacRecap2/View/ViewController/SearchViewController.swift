@@ -40,6 +40,7 @@ final class SearchViewController: HomeBaseViewController<TableHomeView> {
         viewModel.tableErrorOutput.unBind()
         viewModel.errorOutPut.unBind()
         disPatchQueItem?.cancel()
+
     }
 }
 // dataSource, delegate etc Setting
@@ -201,6 +202,7 @@ extension SearchViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = NavigationTitleSection.Search.title
+        
         self.navigationItem.hidesSearchBarWhenScrolling = true
     }
 }
